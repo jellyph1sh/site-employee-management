@@ -1,0 +1,19 @@
+{
+  "name": "webserver",
+  "version": "1.0.0",
+  "description": "Web server for site employee management project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jellyph1sh/site-employee-management.git"
+  },
+  "author": "NockIA, NayvOP, JellyPh1sh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jellyph1sh/site-employee-management/issues"
+  },
+  "homepage": "https://github.com/jellyph1sh/site-employee-management#readme"
+}
