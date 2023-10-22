@@ -1,0 +1,21 @@
+.container_titlePage {
+    display: flex;
+}
+
+.image_title {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: calc(100vw - 245px);
+    /* object-fit: contain; */
+    z-index: 0;
+    height: 18rem;
+}
+
+.container_titlePage h1 {
+    color: whitesmoke;
+    font-family: 'Raleway';
+    position: absolute;
+    top: 1rem;
+    right: calc(100vw / 2.75);
+}
