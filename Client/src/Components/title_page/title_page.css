@@ -1,0 +1,42 @@
+@media screen and (min-width : 900px) {
+    .image_title {
+        height: 18rem;
+        width: calc(100vw - 245px);
+    }
+    .container_titlePage h1 {
+        left: calc(50vw );
+        top: 1rem;
+    }
+}
+
+@media screen and (max-width : 900px) {
+    .image_title {
+        height: 8rem;
+        width: calc(100vw - 97px);
+    }
+    .container_titlePage h1 {
+        font-size: 24px;
+        top: 0.5rem;
+    }
+}
+
+
+.container_titlePage {
+    display: flex;
+}
+
+.image_title {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 0;
+   
+}
+
+.container_titlePage h1 {
+    color: whitesmoke;
+    font-family: 'Raleway';
+    position: absolute;
+   
+    
+}
