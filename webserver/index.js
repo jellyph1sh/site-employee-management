@@ -27,7 +27,7 @@ app.put('/put', (req, res) => {
 })
 
 app.get('/employees', async (req, res) => {
-    let employees = await Database.Read('company.db', 'SELECT * FROM Employees;');
+    let employees = await Database.Read('company.db', 'SELECT Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.name AS jobName, Employees.salary FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
     res.json(employees);
 })
 
