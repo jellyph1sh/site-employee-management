@@ -16,9 +16,14 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello from server!' });
 });
 
-app.post('/test', (req, res) => {
-    console.log(req.body);
-    res.send("POST Request Called")
+app.post('/employee', async (req, res) => {
+    const emp = req.body;
+    const err = await Database.Write('company.db', 'INSERT INTO Employees (name, firstName, jobId, birthDate, hireDate, salary, mail) VALUES (?, ?, ?, ?, ?, ?, ?);', [emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email]);
+    if (err != null) {
+        res.send('Internal error !');
+        return;
+    }
+    res.send('New employee added!')
 })
 
 app.put('/put', (req, res) => {
@@ -27,7 +32,7 @@ app.put('/put', (req, res) => {
 })
 
 app.get('/employees', async (req, res) => {
-    let employees = await Database.Read('company.db', 'SELECT Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.name AS jobName, Employees.salary FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
+    let employees = await Database.Read('company.db', 'SELECT Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.jobId, Jobs.name AS jobName, Employees.salary FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
     res.json(employees);
 })
 
