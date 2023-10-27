@@ -1,24 +1,46 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Employee } from '../../Components/Employee_component/employee';
 import { NavBar } from '../../Components/NavBar/navBar';
 import { TitlePage } from '../../Components/title_page/title_page';
 import '../styles/employees_page.css';
 
 export const EmployeePage = () => {
-    const url = "http://localhost:3001/employees";
+    const url = "http://localhost:3001/";
     const [dataEmployees, setDataEmployees] = useState([]);
+    const [dataJobs, setDataJobs] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [sortedEmployees, setSortedEmployees] = useState([]);
     const [sortKey, setSortKey] = useState("");
-    const [visibilityAdd ,setVisibilityAdd] = useState(true)
-    const [newEmployee, setNewEmployee] = useState({lastname: '',firstname: '',email: '',salary: '',birthdate: '',hiredate: '',job: ''});
+    const [visibilityAdd ,setVisibilityAdd] = useState(false)
+    const [newEmployee, setNewEmployee] = useState({lastname: '',firstname: '',email: '',salary: 0,birthdate: '',hiredate: '',jobId: ''});
 
-    const fetchInfo = async () => {
-        return fetch(url).then((res) => res.json()).then((d) => setDataEmployees(d));
+    const fetchInfoEmployees = async () => {
+        const response = await fetch(url + "employees");
+        const data = await response.json();
+        setDataEmployees(data);
     };
 
+    const fetchInfoJobs = async () => {
+        const response = await fetch(url + "jobs");
+        const data = await response.json();
+        setDataJobs(data);
+    };
+
+    
+    const postNewEmployee = async (dataEmployee) => {
+        console.log('data sent to post',dataEmployee);
+        const data = await axios.post(url+'employee', dataEmployee)
+        return data.data
+    }
+
+
     useEffect(() => {
-        fetchInfo();
+        async function fetchData() {
+            await fetchInfoEmployees();
+            await fetchInfoJobs();
+        }
+        fetchData();
     }, []);
 
     useEffect(() => {
@@ -46,16 +68,24 @@ export const EmployeePage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault(); 
-        const { lastname, firstname, email, salary, birthdate, hiredate, job } = newEmployee;
-        console.log(newEmployee);
+        postNewEmployee(newEmployee);
+      
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setNewEmployee({
-            ...newEmployee,
-            [name]: value,
-        });
+    
+        if (name === "job") {
+            setNewEmployee({
+                ...newEmployee,
+                jobId: value,
+            });
+        } else {
+            setNewEmployee({
+                ...newEmployee,
+                [name]: value,
+            });
+        }
     };
 
     return (
@@ -98,11 +128,12 @@ export const EmployeePage = () => {
                                     <label htmlFor="hiredate">Hire date :</label>
                                     <input required placeholder='Hire date :' type='date' name="hiredate" value={newEmployee.hiredate} onChange={handleInputChange} />
                                 </div>
-                                <select required name="job" value={newEmployee.job} onChange={handleInputChange}>
+                                <select required name="job" value={newEmployee.jobId} onChange={handleInputChange}>
                                     <option value="" disabled>-- Select a job --</option>
-                                    <option value="General director">General director</option>
-                                    <option value="Assistant director">Assistant director</option>
-                                    <option value="Production director">Production director</option>
+                                    {dataJobs.map((jobItem, index) => (
+                                        <option key={index} value={jobItem.jobId}>{jobItem.jobName}</option>
+                                    ))}
+                                   
                                 </select>
                                 
                             </div>
