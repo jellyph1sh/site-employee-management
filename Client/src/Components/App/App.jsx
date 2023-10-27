@@ -6,7 +6,7 @@ import axios from 'axios'
 
 function App() {
 
-  const url = "http://192.168.1.88:3001/";
+  const url = "http://localhost:3001/";
   const [data, setData] = useState([]);
 
   
@@ -17,7 +17,7 @@ function App() {
 
   const putInfo = async () => {
 
-    const data = await axios.post('http://192.168.1.88:3001/test', {'message': 'tokateam'})
+    const data = await axios.post(url+'test', {'message': 'tokateam'})
     console.log(data.data);
     return data.data
   }
@@ -25,7 +25,7 @@ function App() {
   
 
   useEffect(() => {
-
+    fetchInfo()
     // putInfo();
   }, []);
 
