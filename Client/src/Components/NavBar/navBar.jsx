@@ -20,19 +20,19 @@ export const NavBar = () => {
                 <a href="">
                     <div className='container_one_cat_nav'>
                         <span></span>
-                        <p className='link' href="">my employees</p>
+                        <p >my employees</p>
                     </div>
                 </a>
                 <a href="">
                     <div className='container_one_cat_nav'>
                         <span></span>
-                        <p className='link' href="">my employees</p>
+                        <p >my employees</p>
                     </div>
                 </a>
                 <a href="">
                     <div className='container_one_cat_nav'>
                         <span></span>
-                        <p className='link' href="">my employees</p>
+                        <p >my employees</p>
                     </div>
                 </a>
               

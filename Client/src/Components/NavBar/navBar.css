@@ -22,18 +22,22 @@
     .container_title_nav_mobile {
         display: none;
     }
+    .container_title_nav_mobile .dots{
+        width: 6px;
+        height: 6px;
+    }
 }
 
 @media screen and (max-width : 900px) {
     :root {
-        --navigation_bar_width : 100px
+        --navigation_bar_width : 70px
     }
     .container_title_nav {
         display:none;
     }
     .background_nav_header {
-        width: 115px;
-        height: 80px;
+        width: 95px;
+        height: 70px;
     }
     .container_one_cat_nav p {
         display: none;
@@ -59,14 +63,16 @@
         z-index: 2;
         margin-top: 0.8rem;
     }
+    .container_title_nav_mobile .dots{
+        width: 3px;
+        height: 3px;
+    }
  
 }
 
 .container_title_nav_mobile .dots {
     background-color: #E8912B;
     border-radius: 999px;
-    width: 6px;
-    height: 6px;
     margin: 0 4px;
 }
 
@@ -90,8 +96,6 @@
     color: #2B2E3B;
     background-color: #D3D4E0;
     width: 80%;
- 
-
     font-family: 'Poppins';
     font-weight: 700;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -199,6 +203,10 @@ nav {
     color: whitesmoke;
     font-family: 'Poppins';
     font-weight: 500;
+
+}
+a {
+    text-decoration: none;
 }
 
 .container_one_cat_nav span {
@@ -225,7 +233,10 @@ nav {
     gap: 1.5rem;
     align-items: center;
 }
-
+.signIn_container a{
+    text-decoration: none;
+    text-align: center;
+}
 
 
 
