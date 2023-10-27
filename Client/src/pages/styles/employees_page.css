@@ -6,7 +6,15 @@ body {
     .container_all_employees {
         flex-direction: column;
         margin-left: 250px;
-        margin-top: 15rem;
+        margin-top: 3rem;
+    }
+    .container_searchandsort {
+        margin-top: 17rem;
+        margin-left:275px;
+        flex-direction: row;
+    }
+    .sort_container {
+        flex-direction: row;
     }
 }
 @media  screen and (max-width : 1500px) {
@@ -14,7 +22,15 @@ body {
         flex-direction: row;
         flex-wrap: wrap;
         margin-left:240px;
-        margin-top: 13rem;
+        margin-top: 3rem;
+    }
+    .container_searchandsort {
+        margin-top: 17rem;
+        margin-left:275px;
+        flex-direction: row;
+    }
+    .sort_container {
+        flex-direction: row;
     }
 }
 
@@ -23,8 +39,35 @@ body {
         flex-direction: row;
         flex-wrap: wrap;
         margin-left:70px;
-        margin-top: 8rem;
+        margin-top: 3rem;
     }
+    .container_searchandsort {
+        margin-top: 8rem;
+        margin-left:70px;
+        flex-direction: column;
+    }
+    .sort_container {
+        flex-direction: column;
+    }
+}
+
+.sort_container {
+    display: flex;
+ 
+    align-items: center;
+    gap: 1rem;
+    background-color: #2B2E3B ;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-top: 0.1rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.container_searchandsort {
+    z-index: 999;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
 }
 
 .container_all_employees {
@@ -32,4 +75,44 @@ body {
     gap: 2rem;
     justify-content: center;
     align-content: center;
+    margin-bottom: 3rem;
 }
+
+.search_employee {
+    border-radius: 0.3125rem;
+    background: #D3D4E0;
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    min-width: 25vw;
+    font-family: 'Poppins';
+    color: black;
+    cursor:text;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+
+.not_found {
+    font-family: 'Poppins';
+    color: black;
+    font-size: 32px;
+    text-align: center;
+    margin-top: 8rem;
+}
+
+
+.sort_container label {
+    color: whitesmoke;
+    font-family: 'Poppins';
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.sort_container select {
+    background-color: rgba(245, 245, 245, 0.842);
+    border-radius: 5px;
+    font-family: 'Poppins';
+    font-size: 12px;
+    cursor: pointer;
+}
+
