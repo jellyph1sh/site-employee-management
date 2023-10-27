@@ -32,12 +32,12 @@ app.put('/put', (req, res) => {
 })
 
 app.get('/employees', async (req, res) => {
-    let employees = await Database.Read('company.db', 'SELECT Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.jobId, Jobs.name AS jobName, Employees.salary FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
+    let employees = await Database.Read('company.db', 'SELECT Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.name AS jobName, Employees.salary FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
     res.json(employees);
 })
 
 app.get('/jobs', async (req, res) => {
-    let jobs = await Database.Read('company.db', 'SELECT name AS jobName FROM jobs;');
+    let jobs = await Database.Read('company.db', 'SELECT jobId, name AS jobName FROM jobs;');
     res.json(jobs);
 })
 
