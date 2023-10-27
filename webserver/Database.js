@@ -35,6 +35,9 @@ class Database {
     }
 
     static #Close = () => {
+        if (sqlite3.CANTOPEN == 1) {
+            return;
+        }
         Database.#db.close();
         Database.#db = null;
         Database.#perm = null;
