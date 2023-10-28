@@ -17,25 +17,19 @@ export const NavBar = () => {
             </div>
             <img className='background_nav_header' src="./src/assets/images/background_nav.png" alt="background_nav_image" />
             <div className='container_categories'>
-                <a href="">
+                <a href="/">
                     <div className='container_one_cat_nav'>
                         <span></span>
-                        <p >my employees</p>
+                        <p>Home</p>
                     </div>
                 </a>
-                <a href="">
+                <a href="/employees">
                     <div className='container_one_cat_nav'>
                         <span></span>
-                        <p >my employees</p>
+                        <p>Employees</p>
                     </div>
                 </a>
-                <a href="">
-                    <div className='container_one_cat_nav'>
-                        <span></span>
-                        <p >my employees</p>
-                    </div>
-                </a>
-              
+                       
             </div>
             <div className='signIn_container'>
                 <a className='btn_singIn_register' href="">SignIn</a>

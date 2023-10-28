@@ -68,7 +68,7 @@ export const EmployeePage = () => {
                         <option value="hireDate">Hire Date (oldest)</option>
                     </select>
                 </div>
-                <button className='button_add_employee' onClick={(e) => {setVisibilityAdd(!visibilityAdd)}}>Add an employee</button>
+                <button id='add' className='button_add_employee' onClick={(e) => {setVisibilityAdd(!visibilityAdd)}}>Add an employee</button>
             </div>
             { visibilityAdd &&  <Popup isAdd={true} setVisibilityAdd={setVisibilityAdd}/>}
            

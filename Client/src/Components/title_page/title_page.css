@@ -5,7 +5,8 @@
     }
     .container_titlePage h1 {
         left: calc(50vw );
-        top: 2.75rem;
+        top: 1.25rem;
+        font-size: 50px;
     }
 }
 
