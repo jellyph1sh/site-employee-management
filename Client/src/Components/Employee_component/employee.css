@@ -4,8 +4,8 @@
         justify-content: flex-start;
         align-items: center;
         gap: 1.8rem;
-        /* overflow-x: scroll; */
         min-width: auto;
+        position: relative;
     }
     .container_one_value {
         flex-direction: column;
@@ -22,6 +22,11 @@
     }
     .img_employee {
         width: 5rem;
+    }
+    .edit_icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
     }
 }
 
@@ -49,9 +54,14 @@
     .title_cat_employee {
         font-size: 8px;
     }
+    .edit_icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
 }
 
-@media  screen and (max-width : 1500px) {
+@media  screen and (max-width : 970px) {
     .wrapper {
         grid-template-columns: 50px 180px;
     }
@@ -96,4 +106,9 @@
     margin:0;
     padding: 0;
     text-align: left;
+}
+
+.edit_icon {
+    color: lightgrey;
+    cursor: pointer;
 }
