@@ -26,9 +26,14 @@ app.post('/employee', async (req, res) => {
     res.json({status: true})
 })
 
-app.put('/put', (req, res) => {
-    console.log(req.body);
-    res.send("PUT Request Called")
+app.put('/updateEmployee', async (req, res) => {
+    const emp = req.body;
+    const err = await Database.Write('company.db', 'UPDATE Employees SET name = ?, firstName = ?, jobId = ?, birthDate = ?, hireDate = ?, salary = ?, mail = ? WHERE employeeId = ?;', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    res.json({status: true})
 })
 
 app.get('/employees', async (req, res) => {
