@@ -2,11 +2,11 @@ import './popup.css'
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-export const Popup =({ setVisibilityAdd, isAdd,datas,jobId }) => {
+export const Popup =({ idEmployee,setVisibilityAdd, isAdd,datas,jobId }) => {
     const url = "http://localhost:3001/";
 
     const [dataJobs, setDataJobs] = useState([]);
-    const [newEmployee, setNewEmployee] = useState({lastname: isAdd ? '' : datas[0][1],firstname: isAdd ? '' : datas[1][1],email: isAdd ? '' : datas[2][1],salary: isAdd ? 'Salary :' : datas[6][1],birthdate: isAdd ? '' : datas[3][1],hiredate: isAdd ? '' : datas[4][1],jobId: isAdd ? '' : jobId[0][1]});
+    const [newEmployee, setNewEmployee] = useState({idEmployee: isAdd ? '' : idEmployee [0][1] ,lastname: isAdd ? '' : datas[0][1],firstname: isAdd ? '' : datas[1][1],email: isAdd ? '' : datas[2][1],salary: isAdd ? 'Salary :' : datas[6][1],birthdate: isAdd ? '' : datas[3][1],hiredate: isAdd ? '' : datas[4][1],jobId: isAdd ? '' : jobId[0][1]});
 
     const fetchInfoJobs = async () => {
         const response = await fetch(url + "jobs");
@@ -26,10 +26,20 @@ export const Popup =({ setVisibilityAdd, isAdd,datas,jobId }) => {
         return data.data
     }
 
+    const updateEmployee = async (dataEmployee) => {
+        console.log('update employee',dataEmployee);
+        const data = await axios.put(url+'updateEmployee', dataEmployee)
+        return data.data
+    }
+
+
     const handleSubmit = (e) => {
         e.preventDefault(); 
-        postNewEmployee(newEmployee);
-      
+        if (isAdd) {
+            postNewEmployee(newEmployee);
+        } else {
+            updateEmployee(newEmployee);
+        };
     };
     
 
