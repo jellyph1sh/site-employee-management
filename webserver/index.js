@@ -56,6 +56,16 @@ app.put('/updateEmployee', async (req, res) => {
     res.json({status: true})
 })
 
+app.put('/updateJob', async (req, res) => {
+    const job = req.body;
+    const err = await Database.Write('company.db', 'UPDATE Jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.name, job.jobDepartmentId, job.permissionLevel);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    res.json({status: true})
+})
+
 app.get('/employees', async (req, res) => {
     let employees = await Database.Read('company.db', 'SELECT Employees.employeeId, Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.name AS jobName, Employees.salary,Jobs.jobId FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
     res.json(employees);
