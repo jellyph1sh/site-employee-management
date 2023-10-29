@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
 
-@media screen and (min-width: 1700px) {
+@media screen and (min-width: 1500px) {
     .container_infos_left {
         flex-direction: column;
         justify-content: space-between;
@@ -45,7 +45,7 @@
 
 }
 
-@media screen and (min-width:900px) and (max-width: 1700px) {
+@media screen and (min-width:900px) and (max-width: 1500px) {
     .container_infos_left {
         flex-direction: row;
         height: 100%;
