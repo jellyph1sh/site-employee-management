@@ -26,6 +26,16 @@ app.post('/employee', async (req, res) => {
     res.json({status: true})
 })
 
+app.post('/job', async (req, res) => {
+    const job = req.body;
+    const err = await Database.Write('company.db', 'INSERT INTO Jobs (name, jobDepartmentId, permissionLevel) VALUES (?, ?, ?);', job.name, job.jobDepartmentId, job.permissionLevel);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    res.json({status: true});
+})
+
 app.post('/isValidUser', async (req, res) => {
     const emp = req.body;
     let user = await Database.Read('company.db', 'SELECT Jobs.permissionLevel FROM Accounts JOIN Employees ON Employees.employeeId = Accounts.employeeId JOIN Jobs ON Jobs.jobId = Employees.jobId WHERE Accounts.mail = ? AND Accounts.password = ?;', emp.email, emp.password);
