@@ -65,7 +65,7 @@ app.put('/updateEmployee', async (req, res) => {
 
 app.put('/updateJob', async (req, res) => {
     const job = req.body;
-    const err = await Database.Write('company.db', 'UPDATE Jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.name, job.jobDepartmentId, job.permissionLevel);
+    const err = await Database.Write('company.db', 'UPDATE Jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.name, job.jobDepartmentId, job.permissionLevel,job.jobId);
     if (err != null) {
         res.json({status: false});
         return;
