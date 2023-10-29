@@ -1,5 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
 
+@media screen and (min-width:850px) {
+    .container_global_sign {
+        left: 42vw ;
+        top: 32vh;
+        padding: 2rem 4rem;
+        width: max-content;
+    }
+    .container_sign_btn {
+        padding: 0rem 2.65rem;
+    }
+   
+}
+
+@media screen and (max-width:850px) {
+    .container_global_sign {
+        left: 20vw ;
+        top: 25vh;
+        padding: 1rem 1.5rem;
+        max-width: 300px;
+        text-align: center;
+    }
+    .title_signin {
+        font-size: 20px;
+    }
+    .subtite_signin {
+        font-size: 14px;
+    }
+}
+
+
 @keyframes loginAnimation {
     0% {
         padding: 0rem 0rem;
@@ -19,26 +49,23 @@
 }
 
 .container_global_sign {
+    position: absolute;
     display: flex;
     flex-direction: column;
-    padding: 2rem 4rem;
-    width: max-content;
+  
     align-items: center;
     font-family: 'Poppins';
-    margin-left: 35rem;
-    margin-top: 15rem;
     background-color: #343746;
     border-radius: 10px;
-    position: relative;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 
 
 .container_sign_btn {
-    min-width: 4.32rem;
+ 
     width: 85%;
-    padding: 0rem 2.65rem;
+
     border-radius: 5px;
     cursor: pointer;
     overflow: hidden;
@@ -58,7 +85,7 @@
 
 .container_sign_btn:hover {
     background-color: #cacce2a9;
-    transition: .5s;
+    transition: .3s;
 }
 
 .title_signin {

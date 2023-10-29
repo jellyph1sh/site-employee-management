@@ -6,7 +6,7 @@ import { TitlePage } from '../../Components/title_page/title_page';
 
 export const SignIn = () => {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const url = "http://localhost:3001/";
     let email = "";
     let password = "";
@@ -15,22 +15,48 @@ export const SignIn = () => {
         const returned = await axios.post(url+"isValidUser", {"email": email,"password":password})
         return returned.data
     }
+
+    function setCookie(name, value, minutesToExpire) {
+        const date = new Date();
+        date.setTime(date.getTime() + (minutesToExpire * 60 * 1000)); 
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + "; " + expires + "; path=/";
+    }
+
+    // function getCookie(name) {
+    //     const cookieName = name + "=";
+    //     const cookies = document.cookie.split(';');
+        
+    //     for (let i = 0; i < cookies.length; i++) {
+    //         let cookie = cookies[i].trim();
+    //         if (cookie.indexOf(cookieName) === 0) {
+    //             return cookie.substring(cookieName.length, cookie.length);
+    //         }
+    //     }
+      
+    //     return null;
+    // }
+
+    // function deleteCookie(name) {
+    //     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    // }
+      
     
     async function onClick() {
         isValidUser(email, password).then((isLoged) => {
-            console.log(isLoged[Object.keys(isLoged)]);
-            console.log(isLoged);
+            if (isLoged[Object.keys(isLoged)] != false){
+                setCookie("permissionConnected",isLoged[Object.keys(isLoged)],30)
+                
+                navigate("/");
+            } else {
+                document.location.href='http:localhost:5173/signin';
+            }
         });
-        // if (isLoged){
-        //     localStorage.setItem("permissionConnected", JSON.stringify(isLoged[1]));
-        //     navigate("/");
-        // } else {
-        //     document.location.href=url+'signin';
-        // }
+   
     }
 
     return (
-        <div>
+        <main>
             <NavBar />
             <TitlePage title={'SignIn'}/>
             <div className="container_global_sign">
@@ -47,6 +73,6 @@ export const SignIn = () => {
 
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
