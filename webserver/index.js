@@ -18,12 +18,12 @@ app.get('/', (req, res) => {
 
 app.post('/employee', async (req, res) => {
     const emp = req.body;
-    const err = await Database.Write('company.db', 'INSERT INTO Employees (name, firstName, jobId, birthDate, hireDate, salary, mail) VALUES (?, ?, ?, ?, ?, ?, ?);', [emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email]);
+    const err = await Database.Write('company.db', 'INSERT INTO Employees (name, firstName, jobId, birthDate, hireDate, salary, mail) VALUES (?, ?, ?, ?, ?, ?, ?);', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email);
     if (err != null) {
-        res.send('Internal error !');
+        res.json({status: false});
         return;
     }
-    res.send('New employee added!')
+    res.json({status: true})
 })
 
 app.put('/put', (req, res) => {
