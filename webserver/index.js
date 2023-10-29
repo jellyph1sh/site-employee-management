@@ -26,9 +26,9 @@ app.post('/employee', async (req, res) => {
     res.json({status: true})
 })
 
-app.post('isValidUser', async (req, res) => {
+app.post('/isValidUser', async (req, res) => {
     const emp = req.body;
-    let user = await Database.Read('company.db', 'SELECT Jobs.permissionLevel FROM Accounts JOIN Employees ON Employees.employeeId = Accounts.employeeId JOIN Jobs ON Jobs.jobId = Employees.jobId WHERE Accounts.mail = ? AND Accounts.password = ?;', emp.email, emp.password);
+    let user = await Database.Read('company.db', "SELECT Jobs.permissionLevel FROM Accounts JOIN Employees ON Employees.employeeId = Accounts.employeeId JOIN Jobs ON Jobs.jobId = Employees.jobId WHERE Accounts.mail = '?' AND Accounts.password = '?';", emp.email, emp.password);
     if (user.length == 0) {
         res.json({exist: false});
         return;
