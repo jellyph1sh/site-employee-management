@@ -18,7 +18,14 @@ app.get('/', (req, res) => {
 
 app.post('/employee', async (req, res) => {
     const emp = req.body;
-    const err = await Database.Write('company.db', 'INSERT INTO Employees (name, firstName, jobId, birthDate, hireDate, salary, mail) VALUES (?, ?, ?, ?, ?, ?, ?);', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email);
+    let err = await Database.Write('company.db', 'INSERT INTO Employees (name, firstName, jobId, birthDate, hireDate, salary, mail) VALUES (?, ?, ?, ?, ?, ?, ?);', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    let username = emp.lastname + emp.firstname
+    const empMore = await Database.Read('company.db', 'SELECT employeeId FROM Employees WHERE name = ? AND firstName = ? AND mail = ?;', emp.lastname, emp.firstname, emp.email);
+    err = await Database.Write('company.db', 'INSERT INTO Accounts (employeeId, userName, mail, password) VALUES (?, ?, ?, ?);', empMore[0].employeeId, username, emp.email, 'defaultPassword');
     if (err != null) {
         res.json({status: false});
         return;
