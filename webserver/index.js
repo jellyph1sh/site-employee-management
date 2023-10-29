@@ -28,7 +28,7 @@ app.post('/employee', async (req, res) => {
 
 app.put('/updateEmployee', async (req, res) => {
     const emp = req.body;
-    const err = await Database.Write('company.db', 'UPDATE Employees SET name = ?, firstName = ?, jobId = ?, birthDate = ?, hireDate = ?, salary = ?, mail = ? WHERE employeeId = ?;', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email);
+    const err = await Database.Write('company.db', 'UPDATE Employees SET name = ?, firstName = ?, jobId = ?, birthDate = ?, hireDate = ?, salary = ?, mail = ? WHERE employeeId = ?;', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email, emp.idEmployee);
     if (err != null) {
         res.json({status: false});
         return;
