@@ -56,6 +56,11 @@ app.get('/jobs', async (req, res) => {
     res.json(jobs);
 })
 
+app.get('/jobsDepartments', async (req, res) => {
+    let jobsDepartments = await Database.Read('company.db', 'SELECT * FROM JobsDepartments;');
+    res.json(jobsDepartments);
+})
+
 app.listen(PORT, () => {
     console.log('Server started ! http://localhost:3001');
     console.log(`Server now listening on ${PORT}`);
