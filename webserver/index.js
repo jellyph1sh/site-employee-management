@@ -35,7 +35,7 @@ app.post('/employee', async (req, res) => {
 
 app.post('/job', async (req, res) => {
     const job = req.body;
-    const err = await Database.Write('company.db', 'INSERT INTO Jobs (name, jobDepartmentId, permissionLevel) VALUES (?, ?, ?);', job.name, job.jobDepartmentId, job.permissionLevel);
+    const err = await Database.Write('company.db', 'INSERT INTO Jobs (name, jobDepartmentId, permissionLevel) VALUES (?, ?, ?);', job.jobName, parseInt(job.jobDepartmentId), job.permissionLevel);
     if (err != null) {
         res.json({status: false});
         return;
