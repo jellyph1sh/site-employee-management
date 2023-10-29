@@ -28,12 +28,11 @@ export const NavBar = () => {
                         <span></span>
                         <p>Employees</p>
                     </div>
-                </a>
-                       
+                </a>      
             </div>
             <div className='signIn_container'>
-                <a className='btn_singIn_register' href="">SignIn</a>
-                <a className='btn_singIn_register' href="">Register</a>
+                <a className='btn_singIn_register' href="/signin">SignIn</a>
+                <a className='btn_singIn_register' href="/register">Register</a>
             </div>
         </nav>
     )
