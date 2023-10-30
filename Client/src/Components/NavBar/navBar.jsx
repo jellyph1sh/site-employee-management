@@ -1,6 +1,39 @@
+import { useEffect, useState } from 'react'
 import './navBar.css'
 
 export const NavBar = () => {
+    const [isConnected,setIsConnected] = useState(false);
+
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+      
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+
+
+    useEffect(() => {
+        let cookiePerm = getCookie("permissionConnected");
+        if (cookiePerm != null) {
+            setIsConnected(true)
+        } else {
+            setIsConnected(false)
+        }
+        console.log(isConnected);
+      }, []);
+
     return (
         <nav>
             <div className="container_title_nav">
@@ -36,10 +69,16 @@ export const NavBar = () => {
                     </div>
                 </a>     
             </div>
-            <div className='signIn_container'>
-                <a className='btn_singIn_register' href="/signin">SignIn</a>
-                <a className='btn_singIn_register' href="/register">Register</a>
-            </div>
+            {(isConnected == false) && 
+                <div className='signIn_container'>
+                    <a className='btn_singIn_register' href="/signin">SignIn</a>
+                </div>
+            }
+            {isConnected && 
+                <div onClick={(e)=> deleteCookie("permissionConnected")} className='signIn_container'>
+                    <a className='btn_singIn_register' href="/">Log out</a>
+                </div>
+            }
         </nav>
     )
 }
