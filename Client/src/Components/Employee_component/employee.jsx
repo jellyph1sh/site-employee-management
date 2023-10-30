@@ -1,6 +1,6 @@
 import { Popup } from '../Popup/popup';
 import './employee.css'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 export const Employee = (props ) => {
     const { employeesData } = props;
@@ -9,6 +9,31 @@ export const Employee = (props ) => {
     var idEmployee = entries.slice(0,1)
     entries = entries.slice(1,entries.length-1);
     const [visibilityAdd ,setVisibilityAdd] = useState(false);
+    const [permissionConnected,setPermissionsConnected] = useState('');
+
+    
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+      
+        return null;
+    }
+
+    useEffect(()=> {
+        let cookiePerm = getCookie("permissionConnected");
+        if (cookiePerm != null) {
+            setPermissionsConnected(cookiePerm)
+        } else {
+            setPermissionsConnected(cookiePerm)
+        }
+    },[])
     return (
         <div className="container_global_employee">
             <img className='img_employee' src="./src/assets/images/icon_employee.png" alt="icon_employees" />
@@ -23,8 +48,10 @@ export const Employee = (props ) => {
                     </div>
                 ))
             }
-            <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">settings</span>
-           { visibilityAdd &&  <Popup idEmployee={idEmployee} jobId={jobId} datas={entries} isAdd={false} setVisibilityAdd={setVisibilityAdd}/>}
+            {permissionConnected == "rw" && 
+                <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">settings</span>
+            }
+            { visibilityAdd &&  <Popup idEmployee={idEmployee} jobId={jobId} datas={entries} isAdd={false} setVisibilityAdd={setVisibilityAdd}/>}
             
         </div>
     )

@@ -22,8 +22,6 @@ export const NavBar = () => {
         document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
-
-
     useEffect(() => {
         let cookiePerm = getCookie("permissionConnected");
         if (cookiePerm != null) {
@@ -31,7 +29,6 @@ export const NavBar = () => {
         } else {
             setIsConnected(false)
         }
-        console.log(isConnected);
       }, []);
 
     return (

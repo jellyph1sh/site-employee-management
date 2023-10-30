@@ -12,12 +12,28 @@ export const EmployeePage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortedEmployees, setSortedEmployees] = useState([]);
     const [sortKey, setSortKey] = useState("");
+    const [permissionConnected,setPermissionsConnected] = useState('');
    
     const fetchInfoEmployees = async () => {
         const response = await fetch(url + "employees");
         const data = await response.json();
         setDataEmployees(data);
     };
+
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+      
+        return null;
+    }
+
 
 
     useEffect(() => {
@@ -28,6 +44,13 @@ export const EmployeePage = () => {
     }, []);
 
     useEffect(() => {
+        let cookiePerm = getCookie("permissionConnected");
+        if (cookiePerm != null) {
+            setPermissionsConnected(cookiePerm)
+        } else {
+            setPermissionsConnected(cookiePerm)
+        }
+
         const filtered = dataEmployees.filter((employee) => {
             const fullName = `${employee.name} ${employee.firstName} `;
             return fullName.toLowerCase().includes(searchTerm.toLowerCase());
@@ -68,19 +91,28 @@ export const EmployeePage = () => {
                         <option value="hireDate">Hire Date (oldest)</option>
                     </select>
                 </div>
-                <button id='add' className='button_add_employee' onClick={(e) => {setVisibilityAdd(!visibilityAdd)}}>Add an employee</button>
+                {permissionConnected == "rw" && 
+                    <button id='add' className='button_add_employee' onClick={(e) => {setVisibilityAdd(!visibilityAdd)}}>Add an employee</button>
+                }
             </div>
             { visibilityAdd &&  <Popup isAdd={true} setVisibilityAdd={setVisibilityAdd}/>}
-           
-            <div className='container_all_employees'>
-                {sortedEmployees.length === 0 ? (
-                    <p className='not_found'>No employee found.</p>
+            { (permissionConnected == "rw" || permissionConnected == "r") ? 
+                (
+                    <div className='container_all_employees'>
+                        {sortedEmployees.length === 0 ? (
+                            <p className='not_found'>No employee found.</p>
+                        ) : (
+                            sortedEmployees.map((currentEmployee, index) => (
+                                <Employee key={index} employeesData={currentEmployee} />
+                            ))
+                        )}
+                    </div>
                 ) : (
-                    sortedEmployees.map((currentEmployee, index) => (
-                        <Employee key={index} employeesData={currentEmployee} />
-                    ))
-                )}
-            </div>
+                    <div className='container_all_employees'>
+                        <p className='not_found'>You are not allowed to see any informations.</p>
+                    </div>
+                )
+            }
         </div>
     );
 };
