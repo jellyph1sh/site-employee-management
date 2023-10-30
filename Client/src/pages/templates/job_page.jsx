@@ -37,7 +37,8 @@ export const JobsPage = () => {
 
     const deleteJob = async (id) => {
         const idToDelete = {jobId : id}
-        const data = await axios.post(url+'deleteEmployee', idToDelete)
+        const data = await axios.post(url+'deleteJob', idToDelete)
+        await fetchInfoJobs();
         return data.data
     }
 

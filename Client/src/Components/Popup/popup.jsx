@@ -6,20 +6,19 @@ export const Popup =({ idEmployee,setVisibilityAdd, isAdd,datas,jobId }) => {
     const url = "http://localhost:3001/";
 
     const [dataJobs, setDataJobs] = useState([]);
-    const [newEmployee, setNewEmployee] = useState({idEmployee: isAdd ? '' : idEmployee [0][1] ,lastname: isAdd ? '' : datas[0][1],firstname: isAdd ? '' : datas[1][1],email: isAdd ? '' : datas[2][1],salary: isAdd ? 'Salary :' : datas[6][1],birthdate: isAdd ? '' : datas[3][1],hiredate: isAdd ? '' : datas[4][1],jobId: isAdd ? '' : jobId[0][1]});
+    const [newEmployee, setNewEmployee] = useState({idEmployee: isAdd ? '' : idEmployee[0][1] ,lastname: isAdd ? '' : datas[0][1],firstname: isAdd ? '' : datas[1][1],email: isAdd ? '' : datas[2][1],salary: isAdd ? 'Salary :' : datas[6][1],birthdate: isAdd ? '' : datas[3][1],hiredate: isAdd ? '' : datas[4][1],jobId: isAdd ? '' : jobId[0][1]});
 
     const fetchInfoJobs = async () => {
         const response = await fetch(url + "jobs");
         const data = await response.json();
         setDataJobs(data);
-     
     };
+
     useEffect(() => {
         async function fetchData() {
             await fetchInfoJobs();
         }
         fetchData();
-        console.log(dataJobs);
     }, []);
 
     const postNewEmployee = async (dataEmployee) => {
