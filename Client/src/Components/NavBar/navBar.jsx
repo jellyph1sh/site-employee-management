@@ -3,6 +3,7 @@ import './navBar.css'
 
 export const NavBar = () => {
     const [isConnected,setIsConnected] = useState(false);
+    const [windowSize, setWindowSize] = useState({ width: window.innerWidth,height: window.innerHeight});
 
     function getCookie(name) {
         const cookieName = name + "=";
@@ -17,19 +18,32 @@ export const NavBar = () => {
       
         return null;
     }
+    
 
     function deleteCookie(name) {
         document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 
-    useEffect(() => {
+    useEffect(() => {    
         let cookiePerm = getCookie("permissionConnected");
         if (cookiePerm != null) {
-            setIsConnected(true)
+            setIsConnected(true);
         } else {
-            setIsConnected(false)
-        }
-      }, []);
+            setIsConnected(false);
+        }       
+    }, []);
+
+    useEffect(() => {
+        const updateWindowSize = () => {
+            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+        };
+    
+        window.addEventListener('resize', updateWindowSize);
+    
+        return () => {
+            window.removeEventListener('resize', updateWindowSize);
+        };
+    }, []);
 
     return (
         <nav>
@@ -49,19 +63,31 @@ export const NavBar = () => {
             <div className='container_categories'>
                 <a href="/">
                     <div className='container_one_cat_nav'>
-                        <span></span>
+                        {windowSize.width <= 900 ?  
+                            <span className="material-symbols-outlined">home</span>
+                            :
+                            <span></span>
+                        }
                         <p>Home</p>
                     </div>
                 </a>
                 <a href="/employees">
                     <div className='container_one_cat_nav'>
-                        <span></span>
+                        {windowSize.width <= 900 ?  
+                            <span className="material-symbols-outlined">groups</span>
+                            :
+                            <span></span>
+                        }
                         <p>Employees</p>
                     </div>
                 </a>   
                 <a href="/jobs">
                     <div className='container_one_cat_nav'>
-                        <span></span>
+                        {windowSize.width <= 900 ?  
+                            <span className="material-symbols-outlined">work</span>
+                            :
+                            <span></span>
+                        }
                         <p>Jobs</p>
                     </div>
                 </a>     
