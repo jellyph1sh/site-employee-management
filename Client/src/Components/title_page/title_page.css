@@ -5,24 +5,28 @@
     }
     .container_titlePage h1 {
         left: calc(50vw );
-        top: 1rem;
+        top: 1.25rem;
+        font-size: 50px;
     }
 }
 
 @media screen and (max-width : 900px) {
     .image_title {
         height: 8rem;
-        width: calc(100vw - 97px);
+        width: calc(100vw - 67px);
     }
     .container_titlePage h1 {
         font-size: 24px;
         top: 0.5rem;
+        position: absolute;
+        left: 50%;
     }
 }
 
 
 .container_titlePage {
     display: flex;
+    z-index: 999;
 }
 
 .image_title {
@@ -30,7 +34,8 @@
     top: 0;
     right: 0;
     z-index: 0;
-   
+    user-select: none;
+    pointer-events: none;
 }
 
 .container_titlePage h1 {

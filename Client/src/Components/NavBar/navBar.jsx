@@ -1,6 +1,50 @@
+import { useEffect, useState } from 'react'
 import './navBar.css'
 
 export const NavBar = () => {
+    const [isConnected,setIsConnected] = useState(false);
+    const [windowSize, setWindowSize] = useState({ width: window.innerWidth,height: window.innerHeight});
+
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+      
+        return null;
+    }
+    
+
+    function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+    useEffect(() => {    
+        let cookiePerm = getCookie("permissionConnected");
+        if (cookiePerm != null) {
+            setIsConnected(true);
+        } else {
+            setIsConnected(false);
+        }       
+    }, []);
+
+    useEffect(() => {
+        const updateWindowSize = () => {
+            setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+        };
+    
+        window.addEventListener('resize', updateWindowSize);
+    
+        return () => {
+            window.removeEventListener('resize', updateWindowSize);
+        };
+    }, []);
+
     return (
         <nav>
             <div className="container_title_nav">
@@ -17,30 +61,47 @@ export const NavBar = () => {
             </div>
             <img className='background_nav_header' src="./src/assets/images/background_nav.png" alt="background_nav_image" />
             <div className='container_categories'>
-                <a href="">
+                <a href="/">
                     <div className='container_one_cat_nav'>
-                        <span></span>
-                        <p className='link' href="">my employees</p>
+                        {windowSize.width <= 900 ?  
+                            <span className="material-symbols-outlined">home</span>
+                            :
+                            <span></span>
+                        }
+                        <p>Home</p>
                     </div>
                 </a>
-                <a href="">
+                <a href="/employees">
                     <div className='container_one_cat_nav'>
-                        <span></span>
-                        <p className='link' href="">my employees</p>
+                        {windowSize.width <= 900 ?  
+                            <span className="material-symbols-outlined">groups</span>
+                            :
+                            <span></span>
+                        }
+                        <p>Employees</p>
                     </div>
-                </a>
-                <a href="">
+                </a>   
+                <a href="/jobs">
                     <div className='container_one_cat_nav'>
-                        <span></span>
-                        <p className='link' href="">my employees</p>
+                        {windowSize.width <= 900 ?  
+                            <span className="material-symbols-outlined">work</span>
+                            :
+                            <span></span>
+                        }
+                        <p>Jobs</p>
                     </div>
-                </a>
-              
+                </a>     
             </div>
-            <div className='signIn_container'>
-                <a className='btn_singIn_register' href="">SignIn</a>
-                <a className='btn_singIn_register' href="">Register</a>
-            </div>
+            {(isConnected == false) && 
+                <div className='signIn_container'>
+                    <a className='btn_singIn_register' href="/signin">SignIn</a>
+                </div>
+            }
+            {isConnected && 
+                <div onClick={(e)=> deleteCookie("permissionConnected")} className='signIn_container'>
+                    <a className='btn_singIn_register' href="/">Log out</a>
+                </div>
+            }
         </nav>
     )
 }

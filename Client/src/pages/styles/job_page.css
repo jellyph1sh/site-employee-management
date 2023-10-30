@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
+
+@media screen and (min-width:900px) {
+    .container_content_job {
+        margin-left: 300px;
+        margin-top: 15rem;
+        align-items: flex-start;
+    }
+    .container_form_add_job {
+        flex-direction: row;
+    }
+    .container_add_job h2 {
+        text-align: left;
+    }
+    
+}
+
+@media screen and (max-width:900px) {
+    .container_content_job {
+        margin-left: 80px;
+        margin-top: 8rem;
+        align-items: center;
+ 
+    }
+    .container_form_add_job {
+        flex-direction: column;
+    }
+    .container_add_job h2 {
+        text-align: center;
+    }
+}
+
+.container_content_job {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.container_all_jobs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 0 2rem;
+}
+
+.container_job_card {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+    background-color: #373a46;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+    width: 150px ;
+    height: 50px;
+    justify-content: center;
+ 
+}
+
+.color_corner {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 999px;
+    position: absolute;
+    top: -25px;
+    right: -20px;
+    background-color: #E8912B;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.color_corner:hover {
+    background-color: #eeb87a;
+}
+
+.plus_icon_job:hover + .color_corner {
+    background-color: #eeb87a ;
+    transition: .8s;
+}
+
+
+.container_job_card p {
+    text-align: center;
+    color: white;
+    font-family: 'Poppins';
+    padding: 0.5rem 1rem;
+    margin: 0;
+    border-radius: 999px;
+}
+
+.plus_icon_job {
+    position: absolute;
+    top: -8px;
+    right: -5px;
+    z-index: 2;
+    font-weight: 900;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.container_add_job {
+    display: flex;
+    flex-direction: column;
+    margin: 0 2rem;
+}
+
+.container_add_job {
+    font-family: 'Poppins';
+    color: #2B2E3B;
+    font-size: 24px;
+
+}
+
+
+
+.popup_edit_job {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(246px - 1rem);
+    height: calc(146px - 1rem);
+    background-color: #E8912B;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+.popup_edit_job .input_bottom_border {
+    color: white;
+    font-weight: 600;
+}
+
+.popup_edit_job select {
+    background-color: rgba(245, 245, 245, 0.712);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.input_bottom_border {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #2B2E3B;
+}
+
+
+.container_form_add_job {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.container_form_add_job select {
+    cursor: pointer;
+}
+
+   
+
+.title_existing_jobs {
+    margin-top: 3rem;
+}
+
+.text_permission {
+    font-size: 32px;
+    color: #2B2E3B;
+    font-family: 'Poppins';
+    text-align: center;
+    width: 100%;
+}

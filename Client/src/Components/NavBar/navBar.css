@@ -18,22 +18,28 @@
     }
     .container_categories {
         height: calc(100vh - 350px);
+        align-items: flex-start;
+        margin-left: 2rem;
     }
     .container_title_nav_mobile {
         display: none;
+    }
+    .container_title_nav_mobile .dots{
+        width: 6px;
+        height: 6px;
     }
 }
 
 @media screen and (max-width : 900px) {
     :root {
-        --navigation_bar_width : 100px
+        --navigation_bar_width : 70px
     }
     .container_title_nav {
         display:none;
     }
     .background_nav_header {
-        width: 115px;
-        height: 80px;
+        width: 95px;
+        height: 70px;
     }
     .container_one_cat_nav p {
         display: none;
@@ -45,6 +51,7 @@
     }
     .container_categories {
         height: calc(100vh - 275px);
+        align-items: center;
     }
     .container_title_nav_mobile h1 {
         font-family: 'Raleway';
@@ -59,14 +66,16 @@
         z-index: 2;
         margin-top: 0.8rem;
     }
+    .container_title_nav_mobile .dots{
+        width: 3px;
+        height: 3px;
+    }
  
 }
 
 .container_title_nav_mobile .dots {
     background-color: #E8912B;
     border-radius: 999px;
-    width: 6px;
-    height: 6px;
     margin: 0 4px;
 }
 
@@ -90,8 +99,6 @@
     color: #2B2E3B;
     background-color: #D3D4E0;
     width: 80%;
- 
-
     font-family: 'Poppins';
     font-weight: 700;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
@@ -143,12 +150,10 @@ nav {
 }
 
 .container_categories {
-    margin-top: calc(100vh - (100vh - 80px));
+    margin-top: calc(100vh - (100vh - 110px));
 }
 
 .background_nav_header {
-  
-    /* object-fit: contain; */
     position: absolute;
     top: 0;
     left: 0;
@@ -158,9 +163,8 @@ nav {
 .container_categories {
     display: flex;
     flex-direction: column;
-    align-items: center;
-  
-    justify-content: space-around;
+ 
+    justify-content: space-evenly;
 }
 
 .container_one_cat_nav {
@@ -186,6 +190,7 @@ nav {
 
 .container_one_cat_nav:hover span {
     background-color: #2B2E3B;
+    color: whitesmoke;
 }
 
 .container_categories a {
@@ -199,6 +204,11 @@ nav {
     color: whitesmoke;
     font-family: 'Poppins';
     font-weight: 500;
+    margin: 0;
+
+}
+a {
+    text-decoration: none;
 }
 
 .container_one_cat_nav span {
@@ -206,6 +216,11 @@ nav {
     background-color: #D3D4E0;
     width: 30px;
     height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #2B2E3B;
 
 }
 
@@ -225,11 +240,14 @@ nav {
     gap: 1.5rem;
     align-items: center;
 }
-
+.signIn_container a{
+    text-decoration: none;
+    text-align: center;
+}
 
 
 
 .btn_singIn_register:hover {
-    background-color: #b8bbdfda;
-    color: #E8912B;
+    background-color: #cacce2da;
+    color: #e6891f;
 }

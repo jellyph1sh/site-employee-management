@@ -18,7 +18,9 @@
   "homepage": "https://github.com/jellyph1sh/site-employee-management#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "express": "^4.18.2",
+    "generate-password": "^1.7.1",
     "path": "^0.12.7",
     "sqlite3": "^5.1.6"
   }

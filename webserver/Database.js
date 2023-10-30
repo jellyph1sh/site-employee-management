@@ -35,6 +35,7 @@ class Database {
     }
 
     static #Close = () => {
+        if (Database.#db == null) return;
         Database.#db.close();
         Database.#db = null;
         Database.#perm = null;

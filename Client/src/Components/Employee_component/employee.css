@@ -1,0 +1,114 @@
+@media  screen and (min-width : 1500px) {
+    .container_global_employee {
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 1.8rem;
+        min-width: auto;
+        position: relative;
+    }
+    .container_one_value {
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 0.5rem;
+        display: flex;
+    }
+    .content_employee {
+        font-size: 18px;
+    }
+    .title_cat_employee {
+        font-size: 10px;
+    }
+    .img_employee {
+        width: 5rem;
+    }
+    .edit_icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
+@media  screen and (max-width : 1500px) {
+    .container_global_employee {
+        position: relative;
+        flex-direction: column;
+    }
+    .img_employee {
+        margin-bottom: 1rem;
+    }
+   
+    .wrapper {
+        display: grid;
+        grid-template-columns: 100px 250px;
+        grid-gap: 10px;
+        align-items: center;
+    }
+    .img_employee {
+        width: 3.5rem;
+    }
+    .content_employee {
+        font-size: 13px;
+    }
+    .title_cat_employee {
+        font-size: 8px;
+    }
+    .edit_icon {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
+@media  screen and (max-width : 970px) {
+    .wrapper {
+        grid-template-columns: 50px 180px;
+    }
+}
+
+
+.container_global_employee {
+    display: flex;
+
+    background-color: #33374bf6;
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    margin: 0 1.5rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+
+
+.img_employee {
+ 
+    object-fit: contain;
+    border: 4px solid #2B2E3B;
+    border-radius: 15px;
+}
+
+.title_cat_employee {
+    color: #DDDD;
+    font-family: 'Poppins';
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: left;
+    margin:0;
+    padding: 0;
+}
+
+.content_employee {
+    color: whitesmoke;
+    font-family: 'Poppins';
+    
+    font-weight: 500;
+    margin:0;
+    padding: 0;
+    text-align: left;
+}
+
+.edit_icon {
+    color: lightgrey;
+    cursor: pointer;
+}

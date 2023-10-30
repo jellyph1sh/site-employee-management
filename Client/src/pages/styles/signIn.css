@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,700&family=Raleway:ital,wght@0,400;0,700;1,400&display=swap');
+
+@media screen and (min-width:850px) {
+    .container_global_sign {
+        left: 42vw ;
+        top: 32vh;
+        padding: 2rem 4rem;
+        width: max-content;
+    }
+    .container_sign_btn {
+        padding: 0rem 2.65rem;
+    }
+   
+}
+
+@media screen and (max-width:850px) {
+    .container_global_sign {
+        left: 20vw ;
+        top: 25vh;
+        padding: 1rem 1.5rem;
+        max-width: 300px;
+        text-align: center;
+    }
+    .title_signin {
+        font-size: 20px;
+    }
+    .subtite_signin {
+        font-size: 14px;
+    }
+}
+
+
+@keyframes loginAnimation {
+    0% {
+        padding: 0rem 0rem;
+        border-radius: 15px;
+        background-color: #dfd1bf;
+    }
+    50% {
+        padding: 1rem 1rem;
+        border-radius: 15px;
+        background-color: #dfd1bf;
+    }
+    100% {
+        padding: 1.33rem 4.82rem;
+        border-radius: 5px; 
+        background-color: #dfd1bf;
+    }
+}
+
+.container_global_sign {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+  
+    align-items: center;
+    font-family: 'Poppins';
+    background-color: #343746;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+
+.container_sign_btn {
+ 
+    width: 85%;
+
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid #dfd1bf;
+    background-color: #cacce2da;
+    margin-top: 4rem;
+    align-self: center;
+    text-align: center;
+
+}
+
+.color_background_btn {
+    position: absolute;
+    overflow: hidden;
+    background-color: #dfd1bf;
+}
+
+.container_sign_btn:hover {
+    background-color: #cacce2a9;
+    transition: .3s;
+}
+
+.title_signin {
+    color: white;
+    font-weight: 500;
+    margin: 0;
+}
+
+.subtite_signin {
+    color: #61646e;
+    font-weight: 500;
+}
+
+.label_sign {
+    color: lightgray;
+    font-weight: 700;
+    font-family: 'Raleway';
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    margin-bottom: -5px;
+    margin-top: 2rem;
+}
+
+.input_signin {
+    background-color: #282a36;
+    color: lightgray;
+    border-radius: 5px;
+    border: none;
+    padding: 1rem .5rem;
+    font-size: 14px;
+    outline: none;
+    width: 96%;
+   
+}
+
+
+.container_content_sign {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
