@@ -36,7 +36,7 @@ app.post('/employee', async (req, res) => {
         res.json({status: false});
         return;
     }
-    const password = hashPassword(generatePassword(16))
+    const password = hashPassword('sha256', 'base64', generatePassword(16))
     const empMore = await Database.Read('company.db', 'SELECT employeeId FROM employees WHERE lastname = ? AND firstname = ?;', emp.lastname, emp.firstname);
     err = await Database.Write('company.db', 'INSERT INTO accounts (employeeId, email, password) VALUES (?, ?, ?);', empMore[0].employeeId, emp.email, password);
     if (err != null) {
@@ -58,7 +58,7 @@ app.post('/job', async (req, res) => {
 
 app.post('/isValidUser', async (req, res) => {
     const emp = req.body;
-    let user = await Database.Read('company.db', 'SELECT jobs.permissionLevel FROM accounts LEFT JOIN employees ON employees.employeeId = accounts.employeeId LEFT JOIN jobs ON jobs.jobId = employees.jobId WHERE accounts.email = ? AND accounts.password = ?;', emp.email, hashPassword(emp.password));
+    let user = await Database.Read('company.db', 'SELECT jobs.permissionLevel FROM accounts LEFT JOIN employees ON employees.employeeId = accounts.employeeId LEFT JOIN jobs ON jobs.jobId = employees.jobId WHERE accounts.email = ? AND accounts.password = ?;', emp.email, hashPassword('sha256', 'base64', emp.password));
     if (user.length == 0) {
         res.json({exist: false});
         return;
