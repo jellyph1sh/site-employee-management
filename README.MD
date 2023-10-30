@@ -33,6 +33,7 @@ Log in with :
     - **Password:** *password123*
 - *Jean Dupont is the general director of this fictive society.*
 - **To create an account you need to add an employee!**
+- **The password is random, imagine is sending it in an email.**
 
 ## MEMBERS:
 - Evan Ferron as `evanferron`
