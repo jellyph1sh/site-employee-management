@@ -83,7 +83,7 @@ app.put('/updateEmployee', async (req, res) => {
 
 app.put('/updateJob', async (req, res) => {
     const job = req.body;
-    const err = await Database.Write('company.db', 'UPDATE jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.name, job.jobDepartmentId, job.permissionLevel,job.jobId);
+    const err = await Database.Write('company.db', 'UPDATE jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.updateName, job.updateJobDepartmentId, job.updatePerm,job.updateJobId);
     if (err != null) {
         res.json({status: false});
         return;
@@ -97,7 +97,7 @@ app.get('/employees', async (req, res) => {
 })
 
 app.get('/jobs', async (req, res) => {
-    let jobs = await Database.Read('company.db', 'SELECT jobs.jobId, jobs.name AS jobName, jobs.jobDepartmentId, jobsDepartments.name AS departmentName FROM jobs LEFT JOIN jobsDepartments ON jobsDepartments.jobDepartmentId = jobs.jobDepartmentId;');
+    let jobs = await Database.Read('company.db', 'SELECT jobs.jobId, jobs.name AS jobName, jobs.jobDepartmentId, jobsDepartments.name AS departmentName, jobs.permissionLevel FROM jobs LEFT JOIN jobsDepartments ON jobsDepartments.jobDepartmentId = jobs.jobDepartmentId;');
     res.json(jobs);
 })
 
