@@ -31,15 +31,14 @@ app.get('/', (req, res) => {
 
 app.post('/employee', async (req, res) => {
     const emp = req.body;
-    let err = await Database.Write('company.db', 'INSERT INTO Employees (name, firstName, jobId, birthDate, hireDate, salary, mail) VALUES (?, ?, ?, ?, ?, ?, ?);', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email);
+    let err = await Database.Write('company.db', 'INSERT INTO employees (lastname, firstname, jobId, birthDate, hireDate, salary) VALUES (?, ?, ?, ?, ?, ?);', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary);
     if (err != null) {
         res.json({status: false});
         return;
     }
-    let username = emp.lastname + emp.firstname
     const password = hashPassword(generatePassword(16))
-    const empMore = await Database.Read('company.db', 'SELECT employeeId FROM Employees WHERE name = ? AND firstName = ? AND mail = ?;', emp.lastname, emp.firstname, emp.email);
-    err = await Database.Write('company.db', 'INSERT INTO Accounts (employeeId, userName, mail, password) VALUES (?, ?, ?, ?);', empMore[0].employeeId, username, emp.email, password);
+    const empMore = await Database.Read('company.db', 'SELECT employeeId FROM employees WHERE lastname = ? AND firstname = ?;', emp.lastname, emp.firstname);
+    err = await Database.Write('company.db', 'INSERT INTO accounts (employeeId, email, password) VALUES (?, ?, ?);', empMore[0].employeeId, emp.email, password);
     if (err != null) {
         res.json({status: false});
         return;
@@ -49,7 +48,7 @@ app.post('/employee', async (req, res) => {
 
 app.post('/job', async (req, res) => {
     const job = req.body;
-    const err = await Database.Write('company.db', 'INSERT INTO Jobs (name, jobDepartmentId, permissionLevel) VALUES (?, ?, ?);', job.jobName, parseInt(job.jobDepartmentId), job.permissionLevel);
+    const err = await Database.Write('company.db', 'INSERT INTO jobs (name, jobDepartmentId, permissionLevel) VALUES (?, ?, ?);', job.jobName, parseInt(job.jobDepartmentId), job.permissionLevel);
     if (err != null) {
         res.json({status: false});
         return;
@@ -59,7 +58,7 @@ app.post('/job', async (req, res) => {
 
 app.post('/isValidUser', async (req, res) => {
     const emp = req.body;
-    let user = await Database.Read('company.db', 'SELECT Jobs.permissionLevel FROM Accounts JOIN Employees ON Employees.employeeId = Accounts.employeeId JOIN Jobs ON Jobs.jobId = Employees.jobId WHERE Accounts.mail = ? AND Accounts.password = ?;', emp.email, emp.password);
+    let user = await Database.Read('company.db', 'SELECT jobs.permissionLevel FROM accounts LEFT JOIN employees ON employees.employeeId = accounts.employeeId LEFT JOIN jobs ON jobs.jobId = employees.jobId WHERE accounts.email = ? AND accounts.password = ?;', emp.email, emp.password);
     if (user.length == 0) {
         res.json({exist: false});
         return;
@@ -69,7 +68,12 @@ app.post('/isValidUser', async (req, res) => {
 
 app.put('/updateEmployee', async (req, res) => {
     const emp = req.body;
-    const err = await Database.Write('company.db', 'UPDATE Employees SET name = ?, firstName = ?, jobId = ?, birthDate = ?, hireDate = ?, salary = ?, mail = ? WHERE employeeId = ?;', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.email, emp.idEmployee);
+    let err = await Database.Write('company.db', 'UPDATE employees SET lastname = ?, firstname = ?, jobId = ?, birthDate = ?, hireDate = ?, salary = ? WHERE employeeId = ?;', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary, emp.idEmployee);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    err = await Database.Write('company.db', 'UPDATE accounts SET email = ? WHERE employeeId = ?', emp.email, emp.idEmployee);
     if (err != null) {
         res.json({status: false});
         return;
@@ -79,7 +83,7 @@ app.put('/updateEmployee', async (req, res) => {
 
 app.put('/updateJob', async (req, res) => {
     const job = req.body;
-    const err = await Database.Write('company.db', 'UPDATE Jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.name, job.jobDepartmentId, job.permissionLevel,job.jobId);
+    const err = await Database.Write('company.db', 'UPDATE jobs SET name = ?, jobDepartmentId = ?, permissionLevel = ? WHERE jobId = ?', job.name, job.jobDepartmentId, job.permissionLevel,job.jobId);
     if (err != null) {
         res.json({status: false});
         return;
@@ -88,17 +92,17 @@ app.put('/updateJob', async (req, res) => {
 })
 
 app.get('/employees', async (req, res) => {
-    let employees = await Database.Read('company.db', 'SELECT Employees.employeeId, Employees.name, Employees.firstName, Employees.mail, Employees.birthDate, Employees.hireDate, Jobs.name AS jobName, Employees.salary,Jobs.jobId FROM Employees LEFT JOIN Jobs ON Jobs.jobId = Employees.jobId;');
+    let employees = await Database.Read('company.db', 'SELECT employees.employeeId, employees.lastname, employees.firstname, accounts.email, employees.birthDate, employees.hireDate, jobs.name AS jobName, employees.salary, jobs.jobId FROM employees LEFT JOIN jobs ON jobs.jobId = employees.jobId LEFT JOIN accounts ON accounts.employeeId = employees.employeeId;');
     res.json(employees);
 })
 
 app.get('/jobs', async (req, res) => {
-    let jobs = await Database.Read('company.db', 'SELECT Jobs.jobId, Jobs.name AS jobName, Jobs.jobDepartmentId, JobsDepartments.name AS departmentName FROM Jobs JOIN JobsDepartments ON JobsDepartments.jobDepartmentId = Jobs.jobDepartmentId;');
+    let jobs = await Database.Read('company.db', 'SELECT jobs.jobId, jobs.name AS jobName, jobs.jobDepartmentId, jobsDepartments.name AS departmentName FROM jobs LEFT JOIN jobsDepartments ON jobsDepartments.jobDepartmentId = jobs.jobDepartmentId;');
     res.json(jobs);
 })
 
 app.get('/jobsDepartments', async (req, res) => {
-    let jobsDepartments = await Database.Read('company.db', 'SELECT * FROM JobsDepartments;');
+    let jobsDepartments = await Database.Read('company.db', 'SELECT * FROM jobsDepartments;');
     res.json(jobsDepartments);
 })
 
