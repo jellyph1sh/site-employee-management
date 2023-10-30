@@ -30,7 +30,7 @@ export const SignIn = () => {
                 
                 navigate("/");
             } else {
-                document.location.href='http:localhost:5173/signin';
+                document.location.href='signin';
             }
         });
    
