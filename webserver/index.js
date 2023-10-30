@@ -29,6 +29,26 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello from server!' });
 });
 
+app.post('deleteJob', async (req, res) => {
+    const job = req.body;
+    const err = await Database.Write('company.db', 'DELETE FROM superiors WHERE superiors.jobId = ?; DELETE FROM employees WHERE employees.jobId = ?; DELETE FROM jobs WHERE jobs.jobId = ?;', job.jobId, job.jobId, job.jobId);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    res.json({status: true});
+});
+
+app.post('deleteEmployee', async (req, res) => {
+    const emp = req.body;
+    const err = await Database.Write('company.db', 'DELETE FROM superiors WHERE superiors.employeeId = ?; DELETE FROM accounts WHERE accounts.employeeId = ?; DELETE FROM employees WHERE employees.employeeId = ?;', emp.employeeId, emp.employeeId, emp.employeeId);
+    if (err != null) {
+        res.json({status: false});
+        return;
+    }
+    res.json({status: true});
+})
+
 app.post('/employee', async (req, res) => {
     const emp = req.body;
     let err = await Database.Write('company.db', 'INSERT INTO employees (lastname, firstname, jobId, birthDate, hireDate, salary) VALUES (?, ?, ?, ?, ?, ?);', emp.lastname, emp.firstname, emp.jobId, emp.birthdate, emp.hiredate, emp.salary);
