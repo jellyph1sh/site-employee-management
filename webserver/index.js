@@ -58,7 +58,7 @@ app.post('/job', async (req, res) => {
 
 app.post('/isValidUser', async (req, res) => {
     const emp = req.body;
-    let user = await Database.Read('company.db', 'SELECT jobs.permissionLevel FROM accounts LEFT JOIN employees ON employees.employeeId = accounts.employeeId LEFT JOIN jobs ON jobs.jobId = employees.jobId WHERE accounts.email = ? AND accounts.password = ?;', emp.email, emp.password);
+    let user = await Database.Read('company.db', 'SELECT jobs.permissionLevel FROM accounts LEFT JOIN employees ON employees.employeeId = accounts.employeeId LEFT JOIN jobs ON jobs.jobId = employees.jobId WHERE accounts.email = ? AND accounts.password = ?;', emp.email, hashPassword(emp.password));
     if (user.length == 0) {
         res.json({exist: false});
         return;
