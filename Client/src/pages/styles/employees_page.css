@@ -1,7 +1,12 @@
+/* -------------- global -------------- */
+
 body {
-    background-color: #EDEEF4;
     height: 100%;
+    background-color: #EDEEF4;
 }
+
+/* -------------- Responsive -------------- */
+
 @media  screen and (min-width : 1500px) {
     .container_all_employees {
         flex-direction: column;
@@ -9,14 +14,15 @@ body {
         margin-top: 3rem;
     }
     .container_searchandsort {
+        flex-direction: row;
         margin-top: 17rem;
         margin-left:275px;
-        flex-direction: row;
     }
     .sort_container {
         flex-direction: row;
     }
 }
+
 @media  screen and (max-width : 1500px) {
     .container_all_employees {
         flex-direction: row;
@@ -25,9 +31,9 @@ body {
         margin-top: 3rem;
     }
     .container_searchandsort {
+        flex-direction: row;
         margin-top: 17rem;
         margin-left:275px;
-        flex-direction: row;
     }
     .sort_container {
         flex-direction: row;
@@ -42,38 +48,96 @@ body {
         margin-top: 3rem;
     }
     .container_searchandsort {
+        flex-direction: column;
         margin-top: 8rem;
         margin-left:70px;
-        flex-direction: column;
     }
     .sort_container {
         flex-direction: column;
     }
 }
 
+/* -------------- Containers -------------- */
+
 .sort_container {
     display: flex;
- 
     align-items: center;
-    gap: 1rem;
-    background-color: #2B2E3B ;
-    border-radius: 5px;
     padding: 0.5rem 1rem;
     margin-top: 0.1rem;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-.button_add_employee {
-    background-color: #2B2E3B ;
-    border: none;
-    font-family: 'Poppins';
-    cursor: pointer;
-    font-weight: 600;
-    color: whitesmoke;
-    padding: 0.6rem 1rem;
+    gap: 1rem;
     border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background-color: #2B2E3B ;
+}
 
+.container_searchandsort {
+    display: flex;
+    align-items: center;
+    z-index: 999;
+    gap: 2rem;
+}
+
+.container_all_employees {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 3rem;
+    gap: 2rem;
+}
+
+.containerPopAdd {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.container_add {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: fit-content;
+    left: 35%;
+    top: 35%;
+    gap: 0.2rem;
+}
+
+.containerAddForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1rem;
+    gap: 2rem;
+    border-radius: 15px;
+    background-color: #5F6271;
+}
+
+.container_part_form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.container_form_dates {
+    display: flex;
+    flex-direction: column;
+}
+
+/* -------------- Buttons -------------- */
+
+.button_add_employee {
+    padding: 0.6rem 1rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Poppins';
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: whitesmoke;
+    background-color: #2B2E3B ;
 }
 
 .button_add_employee:hover {
@@ -86,49 +150,86 @@ body {
     transition: .5s;
 }
 
-.container_searchandsort {
-    z-index: 999;
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.container_all_employees {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    align-content: center;
-    margin-bottom: 3rem;
-}
-
-.search_employee {
-    border-radius: 0.3125rem;
-    background: #D3D4E0;
+.btn_submit {
+    margin-top: -0.2rem;
+    padding: 0.3rem 0.3rem;
     border: none;
     outline: none;
-    padding: 0.5rem 1rem;
-    min-width: 25vw;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid transparent ;
+    font-weight: 700;
     font-family: 'Poppins';
-    color: black;
-    cursor:text;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    color: white;
+    background-color: #2B2E3B;
 }
 
+.btn_submit:hover {
+    border: 2px solid #cdced6 ;
+}
+
+.close-button {
+    position: absolute;
+    top: -5px;
+    right: -20px;
+    padding: 0.2rem .6rem;
+    cursor: pointer;
+    user-select: none;
+    font-family: 'Poppins';
+    font-weight: 900;
+    border-radius: 999px;
+    border: 3px solid white;
+    color: white;
+}
+
+/* -------------- Texts -------------- */
 
 .not_found {
-    font-family: 'Poppins';
-    color: black;
-    font-size: 32px;
     text-align: center;
     margin-top: 8rem;
+    font-size: 32px;
+    font-family: 'Poppins';
+    color: black;
 }
 
 
 .sort_container label {
-    color: whitesmoke;
-    font-family: 'Poppins';
-    font-weight: 700;
     font-size: 12px;
+    font-weight: 700;
+    font-family: 'Poppins';
+    color: whitesmoke;
+}
+
+.container_add h2 {
+    margin: 0;
+    margin-left: 1rem;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: 'Poppins';
+    color: whitesmoke;
+}
+
+.containerAddForm label{
+    margin: 0;
+    margin-top: -.2rem;
+    font-size: 15px;
+    font-family: 'Poppins';
+    color: whitesmoke;
+}
+
+/* -------------- Others -------------- */
+
+.search_employee {
+    min-width: 25vw;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3125rem;
+    border: none;
+    outline: none;
+    cursor:text;
+    font-family: 'Poppins';
+    color: black;
+    background-color: #D3D4E0;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
 .sort_container select {
@@ -139,44 +240,6 @@ body {
     cursor: pointer;
 }
 
-.containerPopAdd {
-    width: 100vw;
-    height: 100%;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.6);
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-
-.container_add {
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    width: fit-content;
-    position: fixed;
-    left: 35%;
-    top: 35%;
-}
-
-.container_add h2 {
-    color: whitesmoke;
-    font-family: 'Poppins';
-    font-weight: 600;
-    font-size: 20px;
-    margin: 0;
-    margin-left: 1rem;
-}
-
-.containerAddForm {
-    background-color: #5F6271;
-    border-radius: 15px;
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2rem;
-}
 
 .containerAddForm input {
     background-color: white;
@@ -202,56 +265,4 @@ body {
 .containerAddForm input::placeholder {
     font-weight: 600;
     color: black;
-}
-
-.btn_submit {
-    background-color: #2B2E3B;
-    border-radius: 5px;
-
-    border: none;
-    outline: none;
-    color: white;
-    font-family: 'Poppins';
-    font-weight: 700;
-    padding: 0.3rem 0.3rem;
-    cursor: pointer;
-    margin-top: -0.2rem;
-    border: 2px solid transparent ;
-}
-
-.btn_submit:hover {
-    border: 2px solid #cdced6 ;
-}
-
-.container_part_form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.close-button {
-    position: absolute;
-    top: -5px;
-    right: -20px;
-    cursor: pointer;
-    font-family: 'Poppins';
-    font-weight: 900;
-    color: white;
-    padding: 0.2rem .6rem;
-    border-radius: 999px;
-    border: 3px solid white;
-    user-select: none;
-}
-
-.containerAddForm label{
-    font-family: 'Poppins';
-    font-size: 15px;
-    margin: 0;
-    color: whitesmoke;
-    margin-top: -.2rem;
-}
-
-.container_form_dates {
-    display: flex;
-    flex-direction: column;
 }

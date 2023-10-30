@@ -50,8 +50,7 @@ export const SignIn = () => {
                     <input className='input_signin' type="password" placeholder='Enter your password' onChange={(e) => password = e.target.value}/>
                 </div>
                 <div onClick={onClick} className='container_sign_btn'>
-                    <p className=''>Login</p>
-
+                    <p>Login</p>
                 </div>
             </div>
         </main>

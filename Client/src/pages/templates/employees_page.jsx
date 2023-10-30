@@ -96,7 +96,7 @@ export const EmployeePage = () => {
                 }
             </div>
             { visibilityAdd &&  <Popup isAdd={true} setVisibilityAdd={setVisibilityAdd}/>}
-            { (permissionConnected == "rw" || permissionConnected == "r") ? 
+            { (permissionConnected == "rw" || permissionConnected == "r-") ? 
                 (
                     <div className='container_all_employees'>
                         {sortedEmployees.length === 0 ? (

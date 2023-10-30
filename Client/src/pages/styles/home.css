@@ -13,11 +13,11 @@
     }
     .container_big_info {
         padding: 0rem 3rem;
-        min-width: 20rem;
+        width: 25rem;
         height: 100%;
     }
     .container_small_info {
-        padding: 3rem 5rem;
+        padding: 2rem 3rem;
     }
     .nb_employees {
         font-size: 4rem;
@@ -33,7 +33,7 @@
         object-fit: contain;
     }
     .container_presentation_website img {
-        width: 15rem;
+        width: 205px;
         object-fit: contain;
     }
     .container_presentation_website h1 {
@@ -41,6 +41,9 @@
     }
     .container_infos_right {
         justify-content: space-between;
+    }
+    .container_presentation_website {
+        width: 255px;
     }
 
 }
@@ -63,15 +66,14 @@
         flex-wrap: wrap;
     }
     .container_big_info {
-        width: 50vw;
-        padding: 0rem 3vw;
+        width: 33rem;
     }
     .container_small_info {
      
-        padding: 3rem 5rem;
+        padding: 1.5rem 3.5rem;
     }
     .container_presentation_website {
-        width: 345px;
+        width: 255px;
     }
     .nb_employees {
         font-size: 4rem;

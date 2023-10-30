@@ -140,7 +140,7 @@ export const JobsPage = () => {
                         <h2 className='title_existing_jobs'>Existing jobs</h2>
                     </div>
                 }
-                {(permissionConnected == "rw" || permissionConnected == "r") ?
+                {(permissionConnected == "rw" || permissionConnected == "r-") ?
                     <div className='container_all_jobs'>
                         {dataJobs.map((job) => (
                             <div className='container_job_card' key={job.jobId}>
@@ -157,7 +157,7 @@ export const JobsPage = () => {
                                         <select required name="updatePerm" value={updateJobDatas.permissionLevel} onChange={handleInputChange}>
                                             <option value="" defaultValue={'-- Select a permission --'} disabled>-- Select a permission --</option>
                                             <option value="--" >-- (can't see or create)</option>
-                                            <option value="r" >r (can only see)</option>
+                                            <option value="r-" >r (can only see)</option>
                                             <option value="rw" >rw (can create and see)</option>
                                         </select>
                                         <select required name="updateJobDepartmentId" value={parseInt(updateJobDatas.jobDepartmentId)} onChange={handleInputChange}>
