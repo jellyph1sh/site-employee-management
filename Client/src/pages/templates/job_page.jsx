@@ -5,7 +5,7 @@ import axios from 'axios'
 import '../styles/job_page.css'
 
 export const JobsPage = () => {
-    const url = "http://localhost:3001/";
+    const url = "http://localhost:3001/api";
     const [dataJobs, setDataJobs] = useState([]);
     const [dataDep, setDataDep] = useState([]);
     const [permissionConnected,setPermissionsConnected] = useState('');
@@ -14,30 +14,30 @@ export const JobsPage = () => {
     const [formVisibility, setFormVisibility] = useState({});
 
     const fetchInfoJobs = async () => {
-        const response = await fetch(url + "jobs");
+        const response = await fetch(url + "/jobs");
         const data = await response.json();
         setDataJobs(data);
     };
 
     const fetchInfoDepartements = async () => {
-        const response = await fetch(url + "jobsDepartments");
+        const response = await fetch(url + "/departments");
         const data = await response.json();
         setDataDep(data);
     };
 
     const postNewJob = async (dataJob) => {
-        const data = await axios.post(url+'job', dataJob)
+        const data = await axios.post(url+'/jobs/add', dataJob)
         return data.data
     }
 
     const updateJob = async (dataJob) => {
-        const response  = await axios.put(url + 'updateJob' ,dataJob);
+        const response  = await axios.put(url + '/jobs/update' ,dataJob);
         return response.data
     }
 
     const deleteJob = async (id) => {
         const idToDelete = {jobId : id}
-        const data = await axios.post(url+'deleteJob', idToDelete)
+        const data = await axios.post(url+'/jobs/delete', idToDelete)
         await fetchInfoJobs();
         return data.data
     }
@@ -102,6 +102,7 @@ export const JobsPage = () => {
             const permission = e.target.updatePerm.value;
             const departement = e.target.updateJobDepartmentId.value;
             await updateJob({updateJobId: idJob , updateName : name , updatePerm : permission , updateJobDepartmentId: departement});
+            toggleFormVisibility(idJob);
         } else {
             await postNewJob(newJob);           
         }

@@ -4,7 +4,7 @@ import { useState,useEffect } from 'react';
 import axios from 'axios';
 
 export const Employee = (props ) => {
-    const url = "http://localhost:3001/"
+    const url = "http://localhost:3001/api"
 
     const { employeesData } = props;
     var entries = Object.entries(employeesData);
@@ -31,7 +31,7 @@ export const Employee = (props ) => {
 
     const deleteEmployee = async () => {
         const idToDelete = {employeeId : idEmployee[0][1]}
-        const data = await axios.post(url+'deleteEmployee', idToDelete)
+        const data = await axios.post(url+'/employees/delete', idToDelete)
         return data.data
     }
 
