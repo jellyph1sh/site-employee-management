@@ -62,7 +62,7 @@ export const Employee = (props ) => {
                 <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">settings</span>
             }
             {permissionConnected == "rw" && 
-                <span onClick={deleteEmployee} className="material-symbols-outlined delete_icon">delete</span>
+                <span onClick={(e) => deleteEmployee().then(()=>{window.location.reload()})} className="material-symbols-outlined delete_icon">delete</span>
             }
             { visibilityAdd &&  <Popup idEmployee={idEmployee} jobId={jobId} datas={entries} isAdd={false} setVisibilityAdd={setVisibilityAdd}/>}
             
