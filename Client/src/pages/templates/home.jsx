@@ -8,13 +8,13 @@ ChartJS.register(ArcElement,Tooltip,Legend);
 
 
 function Home() {
-  const url = "http://localhost:3001/";
+  const url = "http://localhost:3001/api";
   const [dataEmployees, setDataEmployees] = useState([]);
   const [nbEmployee, setNbEmployees] = useState(0);
   const jobGroups = {};
 
   const fetchInfoEmployees = async () => {
-    const response = await fetch(url + "employees");
+    const response = await fetch(url + "/employees");
     const data = await response.json();
     setDataEmployees(data);
     setNbEmployees(data.length)

@@ -6,7 +6,7 @@ import '../styles/employees_page.css';
 import { Popup } from '../../Components/Popup/popup';
 
 export const EmployeePage = () => {
-    const url = "http://localhost:3001/";
+    const url = "http://localhost:3001/api";
     const [dataEmployees, setDataEmployees] = useState([]);
     const [visibilityAdd ,setVisibilityAdd] = useState(false)
     const [searchTerm, setSearchTerm] = useState('');
@@ -15,7 +15,7 @@ export const EmployeePage = () => {
     const [permissionConnected,setPermissionsConnected] = useState('');
    
     const fetchInfoEmployees = async () => {
-        const response = await fetch(url + "employees");
+        const response = await fetch(url + "/employees");
         const data = await response.json();
         setDataEmployees(data);
     };

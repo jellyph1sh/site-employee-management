@@ -7,12 +7,12 @@ import { TitlePage } from '../../Components/title_page/title_page';
 export const SignIn = () => {
 
     const navigate = useNavigate();
-    const url = "http://localhost:3001/";
+    const url = "http://localhost:3001/api";
     let email = "";
     let password = "";
 
     async function isValidUser(email, password){
-        const returned = await axios.post(url+"isValidUser", {"email": email,"password":password})
+        const returned = await axios.post(url+"/accounts/isvalid", {"email": email,"password":password})
         return returned.data
     }
 
@@ -30,7 +30,7 @@ export const SignIn = () => {
                 
                 navigate("/");
             } else {
-                document.location.href='http:localhost:5173/signin';
+                document.location.href='signin';
             }
         });
    
