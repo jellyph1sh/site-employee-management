@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
     res.json({ message: 'Hello from server!' });
 });
 
-app.post('deleteJob', async (req, res) => {
+app.post('/deleteJob', async (req, res) => {
     const job = req.body;
     const err = await Database.Write('company.db', 'DELETE FROM superiors WHERE superiors.jobId = ? OR superiors.superiorId; DELETE FROM employees WHERE employees.jobId = ?; DELETE FROM jobs WHERE jobs.jobId = ?;', job.jobId, job.jobId, job.jobId);
     if (err != null) {
@@ -39,9 +39,9 @@ app.post('deleteJob', async (req, res) => {
     res.json({status: true});
 });
 
-app.post('deleteEmployee', async (req, res) => {
+app.post('/deleteEmployee', async (req, res) => {
     const emp = req.body;
-    const err = await Database.Write('company.db', 'DELETE FROM accounts WHERE accounts.employeeId = ?; DELETE FROM employees WHERE employees.employeeId = ?;', emp.employeeId, emp.employeeId, emp.employeeId);
+    const err = await Database.Write('company.db', 'DELETE FROM accounts WHERE accounts.employeeId = ?; DELETE FROM employees WHERE employees.employeeId = ?;', emp.employeeId, emp.employeeId);
     if (err != null) {
         res.json({status: false});
         return;
