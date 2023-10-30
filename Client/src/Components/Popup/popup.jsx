@@ -1,6 +1,6 @@
-import './popup.css'
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import '../../pages/styles/employees_page.css'
 
 export const Popup =({ idEmployee,setVisibilityAdd, isAdd,datas,jobId }) => {
     const url = "http://localhost:3001/";
@@ -21,13 +21,11 @@ export const Popup =({ idEmployee,setVisibilityAdd, isAdd,datas,jobId }) => {
     }, []);
 
     const postNewEmployee = async (dataEmployee) => {
-        console.log('data sent to post',dataEmployee);
         const data = await axios.post(url+'employee', dataEmployee)
         return data.data
     }
 
     const updateEmployee = async (dataEmployee) => {
-        console.log('update employee',dataEmployee);
         const data = await axios.put(url+'updateEmployee', dataEmployee)
         return data.data
     }

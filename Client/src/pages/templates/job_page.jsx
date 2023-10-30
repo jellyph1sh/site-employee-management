@@ -11,6 +11,7 @@ export const JobsPage = () => {
     const [permissionConnected,setPermissionsConnected] = useState('');
     const [newJob, setNewJob] = useState({jobName :'' ,permissionLevel : '' ,jobDepartmentId: 0 });
     const [updateJobDatas, setUpdateJobDatas] = useState({});
+    const [formVisibility, setFormVisibility] = useState({});
 
     const fetchInfoJobs = async () => {
         const response = await fetch(url + "jobs");
@@ -36,18 +37,23 @@ export const JobsPage = () => {
         return response.data
     }
 
+    const deleteJob = async (id) => {
+        const idToDelete = {jobId : id}
+        console.log('delete job datas : ',idToDelete);
+        const data = await axios.post(url+'deleteEmployee', idToDelete)
+        return data.data
+    }
+
         
     function getCookie(name) {
         const cookieName = name + "=";
         const cookies = document.cookie.split(';');
-        
         for (let i = 0; i < cookies.length; i++) {
             let cookie = cookies[i].trim();
             if (cookie.indexOf(cookieName) === 0) {
                 return cookie.substring(cookieName.length, cookie.length);
             }
         }
-      
         return null;
     }
 
@@ -57,7 +63,6 @@ export const JobsPage = () => {
             await fetchInfoDepartements();
         }
         fetchData();
-        
     }, []);
 
     useEffect(()=> {
@@ -94,22 +99,16 @@ export const JobsPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(); 
         if (e.target.name == 'edit') {
-            console.log('a');
             const idJob = e.target.updateJobId.value
             const name = e.target.updateName.value;
             const permission = e.target.updatePerm.value;
             const departement = e.target.updateJobDepartmentId.value;
-            console.log(idJob,name,permission,departement);
-
             await updateJob({updateJobId: idJob , updateName : name , updatePerm : permission , updateJobDepartmentId: departement});
         } else {
             await postNewJob(newJob);           
         }
         await fetchInfoJobs();
-     
     }
-
-    const [formVisibility, setFormVisibility] = useState({});
 
     const toggleFormVisibility = (jobId) => {
         setFormVisibility((prevState) => ({
@@ -117,13 +116,6 @@ export const JobsPage = () => {
           [jobId]: !prevState[jobId],
         }));
     };
-
-    const deleteJob = async (id) => {
-        const idToDelete = {jobId : id}
-        console.log('delete job datas : ',idToDelete);
-        const data = await axios.post(url+'deleteEmployee', idToDelete)
-        return data.data
-    }
 
     return (
         <main>

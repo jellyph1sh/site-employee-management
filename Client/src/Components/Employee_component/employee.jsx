@@ -31,7 +31,6 @@ export const Employee = (props ) => {
 
     const deleteEmployee = async () => {
         const idToDelete = {employeeId : idEmployee[0][1]}
-        console.log('delete employee datas : ',idToDelete);
         const data = await axios.post(url+'deleteEmployee', idToDelete)
         return data.data
     }
