@@ -28,6 +28,11 @@
         top: 1rem;
         right: 1rem;
     }
+    .delete_icon {
+        position: absolute;
+        bottom: 1;
+        right: 1;
+    }
 }
 
 @media  screen and (max-width : 1500px) {
@@ -58,6 +63,11 @@
         position: absolute;
         top: 1rem;
         right: 1rem;
+    }
+    .delete_icon {
+        position: absolute;
+        bottom: 1;
+        right: 1;
     }
 }
 

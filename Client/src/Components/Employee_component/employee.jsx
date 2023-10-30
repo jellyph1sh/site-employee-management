@@ -51,6 +51,9 @@ export const Employee = (props ) => {
             {permissionConnected == "rw" && 
                 <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">settings</span>
             }
+             {permissionConnected == "rw" && 
+                <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">delete</span>
+            }
             { visibilityAdd &&  <Popup idEmployee={idEmployee} jobId={jobId} datas={entries} isAdd={false} setVisibilityAdd={setVisibilityAdd}/>}
             
         </div>

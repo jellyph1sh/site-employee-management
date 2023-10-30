@@ -10,7 +10,7 @@ export const JobsPage = () => {
     const [dataDep, setDataDep] = useState([]);
     const [permissionConnected,setPermissionsConnected] = useState('');
     const [newJob, setNewJob] = useState({jobName :'' ,permissionLevel : '' ,jobDepartmentId: 0 });
-    const [updateJobDatas, setUpdateJobDatas] = useState({updateName :'',updateJobDepartmentId: 0,updatePerm : '' ,updateJobId : 0,  });
+    const [updateJobDatas, setUpdateJobDatas] = useState({});
 
     const fetchInfoJobs = async () => {
         const response = await fetch(url + "jobs");
@@ -72,17 +72,10 @@ export const JobsPage = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         if (name === 'updateName' || name === 'updateJobDepartmentId' || name === 'updatePerm' ) {
-            if (name === "updateJobDepartmentId") {
-                setUpdateJobDatas({
-                    ...updateJobDatas,
-                    jobDepartmentId: parseInt(value),
-                });
-            } else {
-                setUpdateJobDatas({
-                    ...updateJobDatas,
-                    [name]: value,
-                });
-            }
+            setUpdateJobDatas({
+                ...updateJobDatas,
+                [name]: value,
+            });
         } else {
             if (name === "departement") {
                 setNewJob({
@@ -98,26 +91,22 @@ export const JobsPage = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault(); 
         if (e.target.name == 'edit') {
+            console.log('a');
             const idJob = e.target.updateJobId.value
             const name = e.target.updateName.value;
             const permission = e.target.updatePerm.value;
             const departement = e.target.updateJobDepartmentId.value;
-            setUpdateJobDatas({
-                ...updateJob,
-                updateJobId: idJob, 
-                updateName: name,
-                updatePerm: permission,
-                updateJobDepartmentId: departement,
-            });
-            updateJob(updateJobDatas);
+            console.log(idJob,name,permission,departement);
+
+            updateJob({updateJobId: idJob , updateName : name , updatePerm : permission , updateJobDepartmentId: departement});
         } else {
             postNewJob(newJob);
             
         }
-        await fetchInfoJobs();
+        fetchInfoJobs();
      
     }
 
@@ -170,15 +159,15 @@ export const JobsPage = () => {
                                 <p>{job.jobName}</p>
                                 {formVisibility[job.jobId] && (
                                     <form id={job.jobId} name='edit'  className="popup_edit_job " onSubmit={handleSubmit}>
-                                        <input className='input_bottom_border' name='updateName' type="text" placeholder={job.jobName} value={updateJob.jobName} onChange={handleInputChange}/>
-                                        <select required name="updatePerm" value={updateJob.permissionLevel} onChange={handleInputChange}>
-                                            <option value=""  disabled>{job.permissionLevel}</option>
+                                        <input className='input_bottom_border' name='updateName' type="text" placeholder={job.jobName} defaultValue={job.jobName} value={updateJob.jobName} onChange={handleInputChange}/>
+                                        <select required name="updatePerm" value={job.permissionLevel} onChange={handleInputChange}>
+                                            <option value={job.permissionLevel}  disabled>{job.permissionLevel}</option>
                                             <option value="--" >-- (can't see or create)</option>
                                             <option value="r-" >r (can only see)</option>
                                             <option value="rw" >rw (can create and see)</option>
                                         </select>
-                                        <select required name="updateJobDepartmentId" value={updateJob.jobDepartmentId} onChange={handleInputChange}>
-                                            <option value=""  disabled>{job.departmentName}</option>
+                                        <select required name="updateJobDepartmentId" value={job.jobDepartmentId} onChange={handleInputChange}>
+                                            <option value={job.departmentName}  disabled>{job.departmentName}</option>
                                             {dataDep.map((departement, index) => (
                                                 <option key={index} value={departement.jobDepartmentId}>{departement.name}</option>
                                             ))}
