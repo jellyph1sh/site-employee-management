@@ -73,6 +73,18 @@
     cursor: pointer;
 }
 
+.color_corner_delete {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 999px;
+    position: absolute;
+    top: -25px;
+    left: -20px;
+    background-color: #E8912B;
+    z-index: 1;
+    cursor: pointer;
+}
+
 .color_corner:hover {
     background-color: #eeb87a;
 }
@@ -101,6 +113,18 @@
     font-size: 20px;
     cursor: pointer;
     user-select: none;
+}
+
+.delete_icon_job {
+    position: absolute;
+    color: white;
+    top: -8px;
+    left: -5px;
+    font-size: 17px;
+    user-select: none;
+    cursor: pointer;
+    padding: 1rem;
+    z-index: 2;
 }
 
 .container_add_job {

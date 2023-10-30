@@ -1,8 +1,11 @@
 import { Popup } from '../Popup/popup';
 import './employee.css'
 import { useState,useEffect } from 'react';
+import axios from 'axios';
 
 export const Employee = (props ) => {
+    const url = "http://localhost:3001/"
+
     const { employeesData } = props;
     var entries = Object.entries(employeesData);
     var jobId = entries.slice(entries.length-1)
@@ -10,6 +13,7 @@ export const Employee = (props ) => {
     entries = entries.slice(1,entries.length-1);
     const [visibilityAdd ,setVisibilityAdd] = useState(false);
     const [permissionConnected,setPermissionsConnected] = useState('');
+
 
     
     function getCookie(name) {
@@ -22,9 +26,16 @@ export const Employee = (props ) => {
                 return cookie.substring(cookieName.length, cookie.length);
             }
         }
-      
         return null;
     }
+
+    const deleteEmployee = async () => {
+        const idToDelete = {employeeId : idEmployee[0][1]}
+        console.log('delete employee datas : ',idToDelete);
+        const data = await axios.post(url+'deleteEmployee', idToDelete)
+        return data.data
+    }
+
 
     useEffect(()=> {
         let cookiePerm = getCookie("permissionConnected");
@@ -51,8 +62,8 @@ export const Employee = (props ) => {
             {permissionConnected == "rw" && 
                 <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">settings</span>
             }
-             {permissionConnected == "rw" && 
-                <span onClick={(e) => {setVisibilityAdd(!visibilityAdd)}} className="material-symbols-outlined edit_icon">delete</span>
+            {permissionConnected == "rw" && 
+                <span onClick={deleteEmployee} className="material-symbols-outlined delete_icon">delete</span>
             }
             { visibilityAdd &&  <Popup idEmployee={idEmployee} jobId={jobId} datas={entries} isAdd={false} setVisibilityAdd={setVisibilityAdd}/>}
             

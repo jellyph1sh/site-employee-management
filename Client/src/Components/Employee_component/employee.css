@@ -30,8 +30,8 @@
     }
     .delete_icon {
         position: absolute;
-        bottom: 1;
-        right: 1;
+        bottom: 1rem;
+        right: 1rem;
     }
 }
 
@@ -61,13 +61,13 @@
     }
     .edit_icon {
         position: absolute;
-        top: 1rem;
+        top: .75rem;
         right: 1rem;
     }
     .delete_icon {
         position: absolute;
-        bottom: 1;
-        right: 1;
+        top: 3rem;
+        right: 1rem;
     }
 }
 
@@ -86,10 +86,7 @@
     padding: 0.5rem 1rem;
     margin: 0 1.5rem;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
 }
-
-
 
 .img_employee {
  
@@ -120,5 +117,10 @@
 
 .edit_icon {
     color: lightgrey;
+    cursor: pointer;
+}
+
+.delete_icon {
+    color: lightcoral;
     cursor: pointer;
 }

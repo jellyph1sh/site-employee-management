@@ -118,6 +118,13 @@ export const JobsPage = () => {
         }));
     };
 
+    const deleteJob = async (id) => {
+        const idToDelete = {jobId : id}
+        console.log('delete job datas : ',idToDelete);
+        const data = await axios.post(url+'deleteEmployee', idToDelete)
+        return data.data
+    }
+
     return (
         <main>
             <NavBar/>
@@ -149,6 +156,10 @@ export const JobsPage = () => {
                     <div className='container_all_jobs'>
                         {dataJobs.map((job) => (
                             <div className='container_job_card' key={job.jobId}>
+                                <i className='color_corner_delete'></i>
+                                {permissionConnected == "rw" && 
+                                    <span onClick={(e)=> {deleteJob(job.jobId)}} className="material-symbols-outlined delete_icon_job">delete</span>
+                                }
                                 {permissionConnected == "rw" && 
                                     <p onClick={() => toggleFormVisibility(job.jobId)} className='plus_icon_job'>
                                         {formVisibility[job.jobId] ? '-' : '+'}
