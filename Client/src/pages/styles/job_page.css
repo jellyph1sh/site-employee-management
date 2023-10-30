@@ -168,3 +168,11 @@
 .title_existing_jobs {
     margin-top: 3rem;
 }
+
+.text_permission {
+    font-size: 32px;
+    color: #2B2E3B;
+    font-family: 'Poppins';
+    text-align: center;
+    width: 100%;
+}

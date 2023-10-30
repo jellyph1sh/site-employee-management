@@ -8,6 +8,7 @@ export const JobsPage = () => {
     const url = "http://localhost:3001/";
     const [dataJobs, setDataJobs] = useState([]);
     const [dataDep, setDataDep] = useState([]);
+    const [permissionConnected,setPermissionsConnected] = useState('');
     const [newJob, setNewJob] = useState({jobName :'' ,permissionLevel : '' ,jobDepartmentId: 0 });
     const [updateJobDatas, setUpdateJobDatas] = useState({jobName :'' ,permissionLevel : '' ,jobDepartmentId: 0 });
 
@@ -35,6 +36,20 @@ export const JobsPage = () => {
         return response.data
     }
 
+        
+    function getCookie(name) {
+        const cookieName = name + "=";
+        const cookies = document.cookie.split(';');
+        
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            if (cookie.indexOf(cookieName) === 0) {
+                return cookie.substring(cookieName.length, cookie.length);
+            }
+        }
+      
+        return null;
+    }
 
     useEffect(() => {
         async function fetchData() {
@@ -43,6 +58,15 @@ export const JobsPage = () => {
         }
         fetchData();
     }, []);
+
+    useEffect(()=> {
+        let cookiePerm = getCookie("permissionConnected");
+        if (cookiePerm != null) {
+            setPermissionsConnected(cookiePerm)
+        } else {
+            setPermissionsConnected(cookiePerm)
+        }
+    },[])
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -94,55 +118,63 @@ export const JobsPage = () => {
             <NavBar/>
             <TitlePage title={'Jobs'}/>
             <div className='container_content_job'>
-                <div className='container_add_job'>
-                    <h2>Add a job</h2>
-                    <form className="container_form_add_job" onSubmit={handleSubmit}>
-                        <input className='input_bottom_border' name='jobName' type="text" placeholder='Name' value={newJob.jobName} onChange={handleInputChange}/>
-                        <select required name="permissionLevel" value={newJob.permissionLevel} onChange={handleInputChange}>
-                            <option value="" defaultValue={'-- Select a permission --'} disabled>-- Select a permission --</option>
-                            <option value="--" >-- (can't see or create)</option>
-                            <option value="r" >r (can only see)</option>
-                            <option value="rw" >rw (can create and see)</option>
-                        </select>
-                        <select required name="departement" value={parseInt(newJob.jobDepartmentId)} onChange={handleInputChange}>
-                            <option value="" defaultValue={'-- Select a departement --'} disabled>-- Select a departement --</option>
-                            {dataDep.map((departement, index) => (
-                                <option key={index} value={departement.jobDepartmentId}>{departement.name}</option>
-                            ))}
-                        </select>
-                        <button className='btn_submit' type="submit">ADD</button>
-                    </form>
-                    <h2 className='title_existing_jobs'>Existing jobs</h2>
-                </div>
-                <div className='container_all_jobs'>
-                    {dataJobs.map((job) => (
-                        <div className='container_job_card' key={job.jobId}>
-                            <p onClick={() => toggleFormVisibility(job.jobId)} className='plus_icon_job'>
-                                {formVisibility[job.jobId] ? '-' : '+'}
-                            </p>
-                            <i className='color_corner'></i>
-                            <p>{job.jobName}</p>
-                            {formVisibility[job.jobId] && (
-                                <form id={job.jobId} className="popup_edit_job " onSubmit={handleSubmit}>
-                                    <input className='input_bottom_border' name='updateName' type="text" placeholder={job.jobName} value={updateJobDatas.jobName} onChange={handleInputChange}/>
-                                    <select required name="updatePerm" value={updateJobDatas.permissionLevel} onChange={handleInputChange}>
-                                        <option value="" defaultValue={'-- Select a permission --'} disabled>-- Select a permission --</option>
-                                        <option value="--" >-- (can't see or create)</option>
-                                        <option value="r" >r (can only see)</option>
-                                        <option value="rw" >rw (can create and see)</option>
-                                    </select>
-                                    <select required name="updateJobDepartmentId" value={parseInt(updateJobDatas.jobDepartmentId)} onChange={handleInputChange}>
-                                        <option value="" defaultValue={'-- Select a departement --'} disabled>-- Select a departement --</option>
-                                        {dataDep.map((departement, index) => (
-                                            <option key={index} value={departement.jobDepartmentId}>{departement.name}</option>
-                                        ))}
-                                    </select>
-                                    <button className='btn_submit' type="submit">ADD</button>
-                                </form>
-                            )}
-                        </div>
-                    ))}
-                </div>
+                {permissionConnected == "rw" && 
+                    <div className='container_add_job'>
+                        <h2>Add a job</h2>
+                        <form className="container_form_add_job" onSubmit={handleSubmit}>
+                            <input className='input_bottom_border' name='jobName' type="text" placeholder='Name' value={newJob.jobName} onChange={handleInputChange}/>
+                            <select required name="permissionLevel" value={newJob.permissionLevel} onChange={handleInputChange}>
+                                <option value="" defaultValue={'-- Select a permission --'} disabled>-- Select a permission --</option>
+                                <option value="--" >-- (can't see or create)</option>
+                                <option value="r" >r (can only see)</option>
+                                <option value="rw" >rw (can create and see)</option>
+                            </select>
+                            <select required name="departement" value={parseInt(newJob.jobDepartmentId)} onChange={handleInputChange}>
+                                <option value="" defaultValue={'-- Select a departement --'} disabled>-- Select a departement --</option>
+                                {dataDep.map((departement, index) => (
+                                    <option key={index} value={departement.jobDepartmentId}>{departement.name}</option>
+                                ))}
+                            </select>
+                            <button className='btn_submit' type="submit">ADD</button>
+                        </form>
+                        <h2 className='title_existing_jobs'>Existing jobs</h2>
+                    </div>
+                }
+                {(permissionConnected == "rw" || permissionConnected == "r") ?
+                    <div className='container_all_jobs'>
+                        {dataJobs.map((job) => (
+                            <div className='container_job_card' key={job.jobId}>
+                                {permissionConnected == "rw" && 
+                                    <p onClick={() => toggleFormVisibility(job.jobId)} className='plus_icon_job'>
+                                        {formVisibility[job.jobId] ? '-' : '+'}
+                                    </p>
+                                }
+                                <i className='color_corner'></i>
+                                <p>{job.jobName}</p>
+                                {formVisibility[job.jobId] && (
+                                    <form id={job.jobId} className="popup_edit_job " onSubmit={handleSubmit}>
+                                        <input className='input_bottom_border' name='updateName' type="text" placeholder={job.jobName} value={updateJobDatas.jobName} onChange={handleInputChange}/>
+                                        <select required name="updatePerm" value={updateJobDatas.permissionLevel} onChange={handleInputChange}>
+                                            <option value="" defaultValue={'-- Select a permission --'} disabled>-- Select a permission --</option>
+                                            <option value="--" >-- (can't see or create)</option>
+                                            <option value="r" >r (can only see)</option>
+                                            <option value="rw" >rw (can create and see)</option>
+                                        </select>
+                                        <select required name="updateJobDepartmentId" value={parseInt(updateJobDatas.jobDepartmentId)} onChange={handleInputChange}>
+                                            <option value="" defaultValue={'-- Select a departement --'} disabled>-- Select a departement --</option>
+                                            {dataDep.map((departement, index) => (
+                                                <option key={index} value={departement.jobDepartmentId}>{departement.name}</option>
+                                            ))}
+                                        </select>
+                                        <button className='btn_submit' type="submit">ADD</button>
+                                    </form>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                : (
+                    <p className='text_permission'>You are not allowed to see any informations.</p>
+                )}
            </div>
         </main>
     )
