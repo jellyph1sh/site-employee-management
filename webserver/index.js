@@ -1,8 +1,13 @@
 const express = require('express');
 const Database = require('./Database');
-const cors = require('cors')
+const cors = require('cors');
+const crypto = require('crypto');
 
-const PORT = 3001
+const PORT = 3001;
+
+const hashPassword = (algorithm, base, passwd) => {
+    return crypto.createHash(algorithm).update(passwd).digest(base);
+}
 
 const app = express();
 
@@ -79,7 +84,7 @@ app.get('/employees', async (req, res) => {
 })
 
 app.get('/jobs', async (req, res) => {
-    let jobs = await Database.Read('company.db', 'SELECT Jobs.jobId, Jobs.name AS jobName, Jobs.jobDepartmentId FROM Jobs JOIN JobsDepartments ON JobsDepartments.jobDepartmentId = Jobs.jobDepartmentId;');
+    let jobs = await Database.Read('company.db', 'SELECT Jobs.jobId, Jobs.name AS jobName, Jobs.jobDepartmentId, JobsDepartments.name AS departmentName FROM Jobs JOIN JobsDepartments ON JobsDepartments.jobDepartmentId = Jobs.jobDepartmentId;');
     res.json(jobs);
 })
 
