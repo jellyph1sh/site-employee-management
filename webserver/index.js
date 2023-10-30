@@ -79,7 +79,7 @@ app.get('/employees', async (req, res) => {
 })
 
 app.get('/jobs', async (req, res) => {
-    let jobs = await Database.Read('company.db', 'SELECT jobId, name AS jobName FROM jobs;');
+    let jobs = await Database.Read('company.db', 'SELECT Jobs.jobId, Jobs.name AS jobName, Jobs.jobDepartmentId FROM Jobs JOIN JobsDepartments ON JobsDepartments.jobDepartmentId = Jobs.jobDepartmentId;');
     res.json(jobs);
 })
 
