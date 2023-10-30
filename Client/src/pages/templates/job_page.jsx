@@ -91,7 +91,7 @@ export const JobsPage = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); 
         if (e.target.name == 'edit') {
             console.log('a');
@@ -101,12 +101,11 @@ export const JobsPage = () => {
             const departement = e.target.updateJobDepartmentId.value;
             console.log(idJob,name,permission,departement);
 
-            updateJob({updateJobId: idJob , updateName : name , updatePerm : permission , updateJobDepartmentId: departement});
+            await updateJob({updateJobId: idJob , updateName : name , updatePerm : permission , updateJobDepartmentId: departement});
         } else {
-            postNewJob(newJob);
-            
+            await postNewJob(newJob);           
         }
-        fetchInfoJobs();
+        await fetchInfoJobs();
      
     }
 
