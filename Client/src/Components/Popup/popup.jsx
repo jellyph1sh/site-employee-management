@@ -12,12 +12,14 @@ export const Popup =({ idEmployee,setVisibilityAdd, isAdd,datas,jobId }) => {
         const response = await fetch(url + "jobs");
         const data = await response.json();
         setDataJobs(data);
+     
     };
     useEffect(() => {
         async function fetchData() {
             await fetchInfoJobs();
         }
         fetchData();
+        console.log(dataJobs);
     }, []);
 
     const postNewEmployee = async (dataEmployee) => {
@@ -80,8 +82,8 @@ export const Popup =({ idEmployee,setVisibilityAdd, isAdd,datas,jobId }) => {
                             <label htmlFor="hiredate">Hire date :</label>
                             <input required placeholder={isAdd ? 'Hire date :' : datas[4][1]} type='date' name="hiredate" value={newEmployee.hiredate} onChange={handleInputChange} />
                         </div>
-                        <select required name="job" value={isAdd ? newEmployee.jobId : datas[5][1]} onChange={handleInputChange}>
-                            <option value="" disabled>-- Select a job --</option>
+                        <select required name="job"  value={isAdd ? newEmployee.jobId : datas[5][1]} onChange={handleInputChange}>
+                            <option value={isAdd ? '': datas[5][1]} disabled>{isAdd ? '' : datas[5][1]}</option>
                             {dataJobs.map((jobItem, index) => (
                                 <option key={index} value={jobItem.jobId}>{jobItem.jobName}</option>
                             ))}

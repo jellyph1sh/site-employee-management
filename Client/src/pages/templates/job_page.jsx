@@ -26,20 +26,17 @@ export const JobsPage = () => {
     };
 
     const postNewJob = async (dataJob) => {
-        console.log('data sent to post job',dataJob);
         const data = await axios.post(url+'job', dataJob)
         return data.data
     }
 
     const updateJob = async (dataJob) => {
-        console.log('job update with datas : ' , dataJob);
         const response  = await axios.put(url + 'updateJob' ,dataJob);
         return response.data
     }
 
     const deleteJob = async (id) => {
         const idToDelete = {jobId : id}
-        console.log('delete job datas : ',idToDelete);
         const data = await axios.post(url+'deleteEmployee', idToDelete)
         return data.data
     }
@@ -162,13 +159,13 @@ export const JobsPage = () => {
                                 {formVisibility[job.jobId] && (
                                     <form id={job.jobId} name='edit'  className="popup_edit_job " onSubmit={handleSubmit}>
                                         <input className='input_bottom_border' name='updateName' type="text" placeholder={job.jobName} defaultValue={job.jobName} value={updateJob.jobName} onChange={handleInputChange}/>
-                                        <select required name="updatePerm" value={job.permissionLevel} onChange={handleInputChange}>
+                                        <select required name="updatePerm" defaultValue={job.permissionLevel} value={updateJob.permissionLevel} onChange={handleInputChange}>
                                             <option value={job.permissionLevel}  disabled>{job.permissionLevel}</option>
                                             <option value="--" >-- (can't see or create)</option>
                                             <option value="r-" >r (can only see)</option>
                                             <option value="rw" >rw (can create and see)</option>
                                         </select>
-                                        <select required name="updateJobDepartmentId" value={job.jobDepartmentId} onChange={handleInputChange}>
+                                        <select required name="updateJobDepartmentId" defaultValue={job.jobDepartmentId} value={updateJob.jobDepartmentId} onChange={handleInputChange}>
                                             <option value={job.departmentName}  disabled>{job.departmentName}</option>
                                             {dataDep.map((departement, index) => (
                                                 <option key={index} value={departement.jobDepartmentId}>{departement.name}</option>

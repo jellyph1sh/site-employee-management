@@ -83,6 +83,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 3;
     width: calc(246px - 1rem);
     height: calc(146px - 1rem);
     gap: 0.5rem;
@@ -159,7 +160,7 @@
     position: absolute;
     top: -8px;
     right: -5px;
-    z-index: 2;
+    z-index: 4;
     font-weight: 900;
     font-size: 20px;
     cursor: pointer;
