@@ -31,8 +31,27 @@ app.get('/', (req, res) => {
 
 app.post('/deleteJob', async (req, res) => {
     const job = req.body;
-    const err = await Database.Write('company.db', 'DELETE FROM superiors WHERE superiors.jobId = ? OR superiors.superiorId; DELETE FROM employees WHERE employees.jobId = ?; DELETE FROM jobs WHERE jobs.jobId = ?;', job.jobId, job.jobId, job.jobId);
+    let err = await Database.Write('company.db', 'DELETE FROM superiors WHERE superiors.jobId = ? OR superiors.superiorId = ?;', job.jobId, job.jobId);
     if (err != null) {
+        console.error(err);
+        res.json({status: false});
+        return;
+    }
+    err = await Database.Write('company.db', 'DELETE FROM accounts WHERE EXISTS (SELECT * FROM employees WHERE employees.employeeId = accounts.employeeId AND employees.jobId = ?)', job.jobId);
+    if (err != null) {
+        console.error(err);
+        res.json({status: false});
+        return;
+    }
+    err = await Database.Write('company.db', 'DELETE FROM employees WHERE employees.jobId = ?;', job.jobId);
+    if (err != null) {
+        console.error(err);
+        res.json({status: false});
+        return;
+    }
+    err = await Database.Write('company.db', 'DELETE FROM jobs WHERE jobs.jobId = ?;', job.jobId);
+    if (err != null) {
+        console.error(err);
         res.json({status: false});
         return;
     }
@@ -41,8 +60,15 @@ app.post('/deleteJob', async (req, res) => {
 
 app.post('/deleteEmployee', async (req, res) => {
     const emp = req.body;
-    const err = await Database.Write('company.db', 'DELETE FROM accounts WHERE accounts.employeeId = ?; DELETE FROM employees WHERE employees.employeeId = ?;', emp.employeeId, emp.employeeId);
+    let err = await Database.Write('company.db', 'DELETE FROM accounts WHERE accounts.employeeId = ?;', emp.employeeId);
     if (err != null) {
+        console.error(err);
+        res.json({status: false});
+        return;
+    }
+    err = await Database.Write('company.db', ' DELETE FROM employees WHERE employees.employeeId = ?;', emp.employeeId);
+    if (err != null) {
+        console.error(err);
         res.json({status: false});
         return;
     }
