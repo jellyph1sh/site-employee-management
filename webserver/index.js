@@ -1,9 +1,17 @@
 const express = require('express');
 const Database = require('./Database');
 const cors = require('cors');
+const generatePasswd = require('generate-password');
 const crypto = require('crypto');
 
 const PORT = 3001;
+
+const generatePassword = (charLen) => {
+    return generatePasswd.generate({ 
+        length: charLen, 
+        numbers: true
+    })
+}
 
 const hashPassword = (algorithm, base, passwd) => {
     return crypto.createHash(algorithm).update(passwd).digest(base);
@@ -29,8 +37,9 @@ app.post('/employee', async (req, res) => {
         return;
     }
     let username = emp.lastname + emp.firstname
+    const password = hashPassword(generatePassword(16))
     const empMore = await Database.Read('company.db', 'SELECT employeeId FROM Employees WHERE name = ? AND firstName = ? AND mail = ?;', emp.lastname, emp.firstname, emp.email);
-    err = await Database.Write('company.db', 'INSERT INTO Accounts (employeeId, userName, mail, password) VALUES (?, ?, ?, ?);', empMore[0].employeeId, username, emp.email, 'defaultPassword');
+    err = await Database.Write('company.db', 'INSERT INTO Accounts (employeeId, userName, mail, password) VALUES (?, ?, ?, ?);', empMore[0].employeeId, username, emp.email, password);
     if (err != null) {
         res.json({status: false});
         return;
