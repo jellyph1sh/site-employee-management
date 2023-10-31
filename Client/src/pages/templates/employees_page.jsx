@@ -52,7 +52,7 @@ export const EmployeePage = () => {
         }
 
         const filtered = dataEmployees.filter((employee) => {
-            const fullName = `${employee.name} ${employee.firstName} `;
+            const fullName = `${employee.lastname} ${employee.firstname} `;
             return fullName.toLowerCase().includes(searchTerm.toLowerCase());
         });
     
